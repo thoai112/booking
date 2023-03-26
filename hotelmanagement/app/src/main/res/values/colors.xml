@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray_400">#b9b9b9</color>
+    <color name="gray_401">#c3c3c3</color>
+    <color name="amber_500">#fbbc05</color>
+    <color name="gray_900">#282828</color>
+    <color name="bluegray_100">#d9d9d9</color>
+    <color name="red_400">#eb5757</color>
+    <color name="light_green_400">#a9d862</color>
+    <color name="gray_200">#efefef</color>
+    <color name="teal_400">#388e8e</color>
+    <color name="bluegray_900">#333333</color>
+    <color name="yellow_A401">#ffe600</color>
+    <color name="yellow_A400">#ffe500</color>
+    <color name="white_A700_75">#75ffffff</color>
+    <color name="light_green_400_75">#75a9d862</color>
+    <color name="bluegray_401">#888888</color>
+    <color name="yellow_800">#eeb31d</color>
+    <color name="bluegray_400">#8a8a8a</color>
+    <color name="yellow_801">#eeb31e</color>
+    <color name="black_900_19">#19000000</color>
+    <color name="white_A700">#ffffff</color>
+    <color name="bluegray_901">#363636</color>
+    <color name="blue">#415AE8</color>
+    <color name="gray">#CB38DFC4</color>
+    <color name="navigate">#A3A0A0</color>
+    <color name="bottom_navigate">#546A83</color>
+
+    <color name="textColorHighlight">#4DD81B60</color>
+    <color name="purple">#673AB7</color>
+    <color name="purpleAlpha15">#26673AB7</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#673AB7</color>
+</resources>

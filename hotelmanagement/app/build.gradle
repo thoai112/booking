@@ -1,0 +1,113 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace 'com.kurata.hotelmanagement'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.kurata.hotelmanagement"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'com.google.firebase:firebase-firestore:24.4.3'
+    implementation "com.firebaseui:firebase-ui-firestore:8.0.0"
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.databinding:databinding-runtime:7.4.2'
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+
+
+    //RxJava & RxAndroid
+    def rx_android = "2.1.1"
+    def rx_java = "2.2.16"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+
+    //Dagger2
+    def dagger_version = "2.25.4"
+    api "com.google.dagger:dagger-android:$dagger_version"
+    api "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    api "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //Rx Binding
+    def rxBinding_version = "3.1.0"
+    implementation "com.jakewharton.rxbinding3:rxbinding:$rxBinding_version"
+    implementation "com.jakewharton.rxbinding3:rxbinding-material:$rxBinding_version"
+
+    //Circular ImageView
+    def circularImage_version = "3.1.0"
+    implementation "de.hdodenhof:circleimageview:$circularImage_version"
+
+    //Glide
+    def glide_version = "4.10.0"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    //RxPermission
+    def rx_permission = "0.7.0"
+    implementation "com.vanniktech:rxpermission:0.7.0"
+
+    //Compressor
+    def compressor = "3.0.1"
+    implementation "id.zelory:compressor:$compressor"
+
+    //Blur Image
+//    def blur_version = "4.1.0"
+//    implementation "jp.wasabeef:glide-transformations:$blur_version"
+
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+    //
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.firebase:firebase-functions:20.2.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+
+
+}

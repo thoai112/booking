@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginTop="@dimen/_120pxh"
+        android:layout_marginBottom="@dimen/_120pxh"
+        android:background="@drawable/popupbg"
+        android:padding="@dimen/_15pxh"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/mEditProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông Tin"
+            android:layout_gravity="center"
+            android:textColor="#29A599"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="115dp"
+            android:background="@drawable/card_bg"
+            android:scaleType="fitXY"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlined_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="Title"
+                android:textColorHint="@color/purple"
+                android:theme="@style/EditTextThemeOverlay"
+                app:boxStrokeColor="@color/purple"
+                app:errorTextAppearance="@style/ErrorTextAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txttitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textColorHighlight="@color/textColorHighlight" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlined_rate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="@dimen/_5pxh"
+                android:hint="Rating"
+                android:textColorHint="@color/purple"
+                android:theme="@style/EditTextThemeOverlay"
+                app:boxStrokeColor="@color/purple"
+                app:errorTextAppearance="@style/ErrorTextAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textColorHighlight="@color/textColorHighlight" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="@dimen/_10pxh">
+
+            <TextView
+                android:id="@+id/mDelete"
+                android:layout_width="47dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="50dp"
+                android:text="Xóa"
+                android:textColor="#E60E0E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mUpdate"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_40pxh"
+                android:layout_marginEnd="@dimen/_5pxh"
+                android:text="Cập nhật"
+                android:textColor="#E60E0E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/mCancel"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/_45pxh"
+                android:layout_marginEnd="@dimen/_10pxh"
+                android:text="Thoát"
+                android:textColor="#E60E0E"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
