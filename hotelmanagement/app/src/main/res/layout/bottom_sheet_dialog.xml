@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_bg"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <TextView
+        android:id="@+id/mHotelType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotel Type"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/layoutEdit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlined_hoteltype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/epro_status"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/sphoteltype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/mHotel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hotel"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/layoutShare"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlined_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/epro_status"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/sphotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/mRoomType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Room Type"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:id="@+id/layoutUpload"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlined_roomtype"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/epro_status"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            <AutoCompleteTextView
+                android:id="@+id/sproomtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
