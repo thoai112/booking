@@ -255,7 +255,7 @@
     <string name="pro_password">Mật khẩu</string>
     <string name="pro_phone">Điện thoại</string>
     <string name="pro_address">Địa chỉ</string>
-    <string name="pro_zip">Zip code</string>
+    <string name="pro_status">Trạng thái</string>
     <string name="pro_role">Quyền</string>
     <string name="edit_pro">Chỉnh sửa</string>
 
@@ -272,12 +272,17 @@
     <string name="epro_fullname">Họ và tên</string>
     <string name="epro_email">Email</string>
     <string name="epro_mobile">Số điện thoại</string>
-    <string name="epro_zip">Zip Code</string>
+    <string name="epro_status">Trạng thái</string>
     <string name="epro_role">Quyền</string>
     <string name="epro_address">Địa chỉ</string>
 
 
     <!--    TODO: HOTELTYPE -->
     <string name="title_hoteltype">Hotel Type</string>
+
+
+    <!--    TODO: MAP API KEY -->
+    <string name="map_api_key">AIzaSyD0Dae5H1ar76eIGRqA5ffskGbyD17F0Ps</string>
+
 
 </resources>

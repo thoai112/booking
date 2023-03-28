@@ -7,21 +7,21 @@ public class User {
     private String avatar;
     private String mobile;
     private String address;
-    private String zip;
+    private Boolean status;
     private String role;
 
     public User() {
 
     }
 
-    public User(String id, String email, String fullName, String avatar, String mobile, String address, String zip, String role) {
+    public User(String id, String email, String fullName, String avatar, String mobile, String address, Boolean status, String role) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
         this.avatar = avatar;
         this.mobile = mobile;
         this.address = address;
-        this.zip = zip;
+        this.status = status;
         this.role = role;
     }
 
@@ -73,12 +73,12 @@ public class User {
         this.address = address;
     }
 
-    public String getZip() {
-        return zip;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     public String getRole() {

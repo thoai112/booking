@@ -305,20 +305,20 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/txtZip"
+                    android:id="@+id/txtStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/pro_zip"
+                    android:text="@string/pro_status"
                     android:textColor="#5917e1"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/mZip"
+                    android:id="@+id/mStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="999999999"
+                    android:text="Activate"
                     android:textAlignment="viewEnd"
                     android:textColor="#5b5b5b"
                     android:textSize="18sp" />

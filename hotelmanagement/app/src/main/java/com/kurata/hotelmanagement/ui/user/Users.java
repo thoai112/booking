@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.UsersRecyclerAdapter;
 import com.kurata.hotelmanagement.data.model.User;
 import com.kurata.hotelmanagement.databinding.FragmentUsersBinding;
@@ -47,6 +50,12 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
     private FragmentUsersBinding binding;
     private PopupUserProfileBinding UBinding;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    //spinner
+    ArrayAdapter<String> adapterItems;
+    private String[] items =  {"Activate","Disable"};
+    String item;
+
 
     @Inject
     UsersRecyclerAdapter recyclerAdapter;
@@ -69,6 +78,8 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         mAuth = FirebaseAuth.getInstance();
         String myId = mAuth.getCurrentUser().getUid();
         Log.d("uidtest", myId);
+
+
 
         usersViewModel =  new ViewModelProvider(requireActivity()).get(UsersViewModel.class);
         usersViewModel.init(myId);
@@ -178,6 +189,15 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        UBinding.mStatus.setAdapter(adapterItems);
+
+        UBinding.mStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         UBinding.mDelete.setVisibility(View.INVISIBLE);
         UBinding.mUpdate.setText("Thêm");
@@ -201,7 +221,7 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
     }
 
 
-    private void PopupUserProfile(int gravity, FirebaseFirestore firestore, String uid) {
+    private void PopupUserProfile(int gravity, FirebaseFirestore firestore, String uid, Boolean status) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupUserProfileBinding.inflate(getLayoutInflater());
@@ -219,6 +239,22 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        if(status){
+            UBinding.mStatus.setText(items[0]);
+        }
+        else{
+            UBinding.mStatus.setText(items[1]);
+        }
+
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        UBinding.mStatus.setAdapter(adapterItems);
+
+        UBinding.mStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         UBinding.mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +265,12 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
                 user.put("address",UBinding.txtaddress.getText().toString());
                 user.put("mobile",UBinding.txtmobile.getText().toString());
                 user.put("role",UBinding.txtrole.getText().toString());
-                user.put("zip",UBinding.txtzip.getText().toString());
+                if(item == items[0]){
+                    user.put("status",Boolean.TRUE);
+                }else{
+                    user.put("status",Boolean.FALSE);
+                }
+
 
                 DocumentReference reference = firestore.collection("users").document(uid);
 
@@ -267,14 +308,15 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
 
     @Override
     public void onUserClicked(User user) {
-        PopupUserProfile(Gravity.TOP ,firestore, user.getId());
+        PopupUserProfile(Gravity.TOP ,firestore, user.getId(), user.isStatus());
         Log.d("UID", user.getId());
         UBinding.txtfullName.setText(user.getfullName());
         UBinding.txtEmail.setText(user.getEmail());
         UBinding.txtaddress.setText(user.getAddress());
         UBinding.txtmobile.setText(user.getMobile());
         UBinding.txtrole.setText(user.getRole());
-        UBinding.txtzip.setText(user.getZip());
+        //UBinding.txtzip.setText(user.getZip());
+
         Glide.with(UBinding.Logo).load(user.getAvatar()).into(UBinding.Logo);
     }
 }

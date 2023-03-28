@@ -146,29 +146,27 @@
                 android:textColorHighlight="@color/textColorHighlight" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlined_status"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp"
             android:hint="Status"
             android:textColorHint="@color/purple"
-            android:theme="@style/EditTextThemeOverlay"
             app:boxStrokeColor="@color/purple"
-            app:errorTextAppearance="@style/ErrorTextAppearance"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/outlined_about">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtstatus"
+            <AutoCompleteTextView
+                android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColorHighlight="@color/textColorHighlight" />
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:ellipsize="end" android:gravity="center"
             android:id="@+id/btnSubmit"

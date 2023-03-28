@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.data.model.User;
 import com.kurata.hotelmanagement.data.repository.Repository;
 import com.kurata.hotelmanagement.databinding.FragmentProfileBinding;
@@ -76,6 +79,10 @@ public class Profile extends Fragment {
     Uri imageUri;
     FirebaseFirestore firestore;
     String currentId;
+    ArrayAdapter<String> adapterItems;
+    private String[] items =  {"Activate","Disable"};
+    String item;
+
 
     private FragmentProfileBinding binding;
     private PopupEditProfileBinding Ebinding;
@@ -124,9 +131,9 @@ public class Profile extends Fragment {
         storage = FirebaseStorage.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         currentId = firebaseUser.getUid();
-        Log.d("IFDDD", currentId);
         DocumentReference reference;
         firestore = FirebaseFirestore.getInstance();
+
 
         ViewModelProvider.Factory test = (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory();
 
@@ -188,15 +195,20 @@ public class Profile extends Fragment {
         Glide.with(this).load(user.getAvatar()).into(binding.Logo);
         binding.mMobile.setText(user.getMobile());
         binding.mRole.setText(user.getRole());
-        binding.mZip.setText(user.getZip());
         binding.mAddress.setText(user.getAddress());
+        if(user.isStatus()==Boolean.TRUE){
+            binding.mStatus.setText("Activate");
+        }else{
+            binding.mStatus.setText("Disable");
+        }
+
 
         preferenceManager.putString(Constants.P_FULL_NAME, user.getfullName() );
         preferenceManager.putString(Constants.P_EMAIL, user.getEmail() );
         preferenceManager.putString(Constants.P_ADDRESS, user.getAddress());
         preferenceManager.putString(Constants.P_MOBILE, user.getMobile() );
         preferenceManager.putString(Constants.P_ROLE, user.getRole() );
-        preferenceManager.putString(Constants.P_ZIP, user.getZip());
+        preferenceManager.putBoolean(String.valueOf(Constants.P_STATUS), user.isStatus());
         preferenceManager.putString(Constants.P_AVATAR, user.getAvatar());
     }
 
@@ -253,6 +265,15 @@ public class Profile extends Fragment {
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        Ebinding.autoCompleteTxt.setAdapter(adapterItems);
+
+        Ebinding.autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         Ebinding.mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,7 +289,13 @@ public class Profile extends Fragment {
                 user.put("address",Ebinding.txtAddress.getText().toString());
                 user.put("mobile",Ebinding.txtMobile.getText().toString());
                 user.put("role",Ebinding.txtRole.getText().toString());
-                user.put("zip",Ebinding.txtZip.getText().toString());
+                if(item =="Activate"){
+                    user.put("status",Boolean.TRUE);
+                }
+                else{
+                    user.put("status",Boolean.FALSE);
+                }
+               //user.put("status",Ebinding.txtStatus.getText().toString());
 
 
                 DocumentReference reference = firebaseFirestore.collection("users").document(uid);
@@ -302,7 +329,13 @@ public class Profile extends Fragment {
         Ebinding.txtEmail.setText(preferenceManager.getString(Constants.P_EMAIL));
         Ebinding.txtMobile.setText(preferenceManager.getString(Constants.P_MOBILE));
         Ebinding.txtRole.setText(preferenceManager.getString(Constants.P_ROLE));
-        Ebinding.txtZip.setText(preferenceManager.getString(Constants.P_ZIP));
+        if(preferenceManager.getBoolean(String.valueOf(Constants.P_STATUS)) == Boolean.TRUE)
+        {
+            Ebinding.autoCompleteTxt.setText("Activate");
+        }
+        else {
+            Ebinding.autoCompleteTxt.setText("Disable");
+        }
         Ebinding.txtAddress.setText(preferenceManager.getString(Constants.P_ADDRESS));
     }
 
@@ -410,7 +443,7 @@ public class Profile extends Fragment {
     private boolean checkValidInputEProfile() {
         if (Ebinding.txtfullName.getText().toString().trim().isEmpty()
                 || Ebinding.txtMobile.getText().toString().trim().isEmpty()
-                || Ebinding.txtZip.getText().toString().trim().isEmpty()
+                //|| Ebinding.txtZip.getText().toString().trim().isEmpty()
                 || Ebinding.txtAddress.getText().toString().trim().isEmpty()
                 || Ebinding.txtRole.getText().toString().trim().isEmpty())
             return false;

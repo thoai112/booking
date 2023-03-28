@@ -4,7 +4,7 @@ public class Roomtype {
     String id;
     String name;
     String img;
-    boolean status;
+    Boolean status;
 
     public Roomtype(){
 
@@ -40,7 +40,7 @@ public class Roomtype {
         this.img = img;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 

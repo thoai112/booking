@@ -1,20 +1,22 @@
 package com.kurata.hotelmanagement.data.model;
 
 public class Hoteltype {
-    String id;
-    String name;
-    String type;
-    String img;
+    private String id;
+    private String name;
+    private String type;
+    private String img;
+    private Boolean status;
 
     public Hoteltype(){
 
     }
 
-    public Hoteltype(String id, String name, String type, String img) {
+    public Hoteltype(String id, String name, String type, String img, Boolean status) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.img = img;
+        this.status = status;
     }
 
     public String getId() {
@@ -49,5 +51,12 @@ public class Hoteltype {
         this.img = img;
     }
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
 }

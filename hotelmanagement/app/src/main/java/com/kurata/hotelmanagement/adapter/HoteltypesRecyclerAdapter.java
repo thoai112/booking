@@ -30,8 +30,7 @@ public class HoteltypesRecyclerAdapter extends RecyclerView.Adapter<HoteltypesRe
         return new HoteltypeViewHolder(
                 StaggereItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false)
         );
-//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.staggere_item, parent, false);
-//            return new HoteltypeViewHolder(view);
+
         }
 
     @Override
@@ -69,6 +68,7 @@ public class HoteltypesRecyclerAdapter extends RecyclerView.Adapter<HoteltypesRe
                     model.setId(hoteltype.getId());
                     model.setImg(hoteltype.getImg());
                     model.setType(hoteltype.getType());
+                    model.setStatus(hoteltype.getStatus());
                     hoteltypeListener.onUserClicked(model);
                 });
             }

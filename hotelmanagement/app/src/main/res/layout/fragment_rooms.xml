@@ -1,13 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.room.Rooms">
+    android:animateLayoutChanges="true"
+    tools:context=".ui.hotel.Hotels">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="120dp"
+        android:background="@drawable/background_top"
+        tools:ignore="MissingConstraints">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:orientation="vertical"
+            android:text="@string/title_hoteltype"
+            android:textColor="#ffffff"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.482"
+            app:srcCompat="@drawable/back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="64dp"
+        android:background="@drawable/edittext_background"
+        android:elevation="10dp"
+        app:iconifiedByDefault="false"
+
+
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.375"
+        app:queryHint="Tim kiem ..." />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_630pxh"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        android:layout_marginTop="@dimen/_5pxh">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gridView"
+            tools:listitem="@layout/staggere_item"
+            android:clipToPadding="false"
+            android:visibility="visible"/>
+
+        <!--        <ProgressBar-->
+        <!--            android:id="@+id/progressBar"-->
+        <!--            android:layout_width="@dimen/_25pxh"-->
+        <!--            android:layout_height="@dimen/_25pxh"-->
+        <!--            android:layout_gravity="center"/>-->
+
+        <TextView
+            android:id="@+id/textErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/_24pxh"
+            android:layout_marginEnd="@dimen/_24pxh"
+            android:layout_gravity="center"
+            android:textColor="#F80000"
+            android:textSize="@dimen/_12sp"
+            android:visibility="gone"/>
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_30pxh"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#d0beed"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

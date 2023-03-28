@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +32,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.HoteltypesRecyclerAdapter;
 import com.kurata.hotelmanagement.data.model.Hoteltype;
 import com.kurata.hotelmanagement.data.repository.HotelRepository;
@@ -56,6 +59,11 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
     private PopupHoteltypeBinding UBinding;
     private Uri selectedImage;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+    //Spiner
+    ArrayAdapter<String> adapterItems;
+    private String[] items =  {"Activate","Disable"};
+    String item;
 
     @Inject
     HoteltypesRecyclerAdapter recyclerAdapter;
@@ -156,6 +164,15 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        UBinding.autoCompleteTxt.setAdapter(adapterItems);
+
+        UBinding.autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         UBinding.mDelete.setVisibility(View.INVISIBLE);
         UBinding.mUpdate.setText("Thêm");
@@ -176,6 +193,12 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
                 DocumentReference addedDocRef = firestore.collection("rating").document();
                 data.put("id",addedDocRef.getId().toString());
                 data.put("img","");
+
+                if(item == items[0]){
+                    data.put("status",Boolean.TRUE);
+                }else{
+                    data.put("Status", Boolean.FALSE);
+                }
                 firestore.collection("rating").document(addedDocRef.getId()).set(data);
 
                 if(selectedImage!=null){
@@ -243,7 +266,7 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
                 });
     }
 
-    private void PopupHotelype(int gravity, String uid) {
+    private void PopupHotelype(int gravity, String uid, Boolean status) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupHoteltypeBinding.inflate(getLayoutInflater());
@@ -261,6 +284,22 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        if(status){
+            UBinding.autoCompleteTxt.setText(items[0]);
+        }
+        else{
+            UBinding.autoCompleteTxt.setText(items[1]);
+        }
+
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        UBinding.autoCompleteTxt.setAdapter(adapterItems);
+
+        UBinding.autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         UBinding.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,6 +314,11 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
                 HashMap<String, Object> hoteltype = new HashMap<>();
                 hoteltype.put("name",UBinding.txttitle.getText().toString());
                 hoteltype.put("type",UBinding.txtrate.getText().toString());
+                if(item == items[0]){
+                    hoteltype.put("status",Boolean.TRUE);
+                }else{
+                    hoteltype.put("status",Boolean.FALSE);
+                }
 
                 if(selectedImage!=null){
                     HotelRepository repository = new HotelRepository();
@@ -317,7 +361,7 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
 
     @Override
     public void onUserClicked(Hoteltype hoteltype) {
-        PopupHotelype(Gravity.CENTER, hoteltype.getId());
+        PopupHotelype(Gravity.CENTER, hoteltype.getId(), hoteltype.getStatus());
         UBinding.txttitle.setText(hoteltype.getName());
         UBinding.txtrate.setText(hoteltype.getType());
         Glide.with(UBinding.image).load(hoteltype.getImg()).into(UBinding.image);

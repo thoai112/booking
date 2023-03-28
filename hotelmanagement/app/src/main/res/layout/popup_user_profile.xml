@@ -112,29 +112,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlined_mobile"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="Mobile"
-            android:textColorHint="@color/purple"
-            android:theme="@style/EditTextThemeOverlay"
-            app:boxStrokeColor="@color/purple"
-            app:errorTextAppearance="@style/ErrorTextAppearance"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtmobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColorHighlight="@color/textColorHighlight" />
-
-        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,30 +142,47 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/outlined_zip"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/outlined_status"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Zip"
-                android:textColorHint="@color/purple"
-                android:theme="@style/EditTextThemeOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:boxStrokeColor="@color/purple"
-                app:errorTextAppearance="@style/ErrorTextAppearance"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtzip"
+                android:hint="@string/epro_status"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                <AutoCompleteTextView
+                    android:id="@+id/mStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHighlight="@color/textColorHighlight" />
-
+                    android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlined_mobile"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Mobile"
+            android:textColorHint="@color/purple"
+            android:theme="@style/EditTextThemeOverlay"
+            app:boxStrokeColor="@color/purple"
+            app:errorTextAppearance="@style/ErrorTextAppearance"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtmobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColorHighlight="@color/textColorHighlight" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

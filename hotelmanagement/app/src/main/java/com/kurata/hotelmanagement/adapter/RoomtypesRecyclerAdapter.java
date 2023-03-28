@@ -31,7 +31,7 @@ public class RoomtypesRecyclerAdapter extends RecyclerView.Adapter<RoomtypesRecy
                 StaggereItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false)
         );
 //            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.staggere_item, parent, false);
-//            return new HoteltypeViewHolder(view);
+//            return new RoomtypeViewHolder(view);
     }
 
     @Override

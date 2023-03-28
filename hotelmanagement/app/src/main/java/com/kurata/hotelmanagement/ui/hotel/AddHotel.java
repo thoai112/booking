@@ -1,18 +1,15 @@
 package com.kurata.hotelmanagement.ui.hotel;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -46,6 +43,11 @@ public class AddHotel extends AppCompatActivity {
     FirebaseStorage mStorage;
     ProgressDialog progressDialog;
     PopupEditProfileBinding Ebinding;
+
+    //spinner
+    ArrayAdapter<String> adapterItems;
+    private String[] items =  {"Activate","Disable"};
+    String item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +100,9 @@ public class AddHotel extends AppCompatActivity {
 
             binding.txtName.setText(object.getName());
             binding.txtaddress.setText(object.getAddress());
-            binding.txtstatus.setText(object.getStatus());
             binding.txtabout.setText(object.getAbout());
             binding.viewPager.setVisibility(View.VISIBLE);
-
-
+            binding.spinner.setText(object.getStatus());
             ImagesUrl = object.getImage();
             ViewPagerAdapter adapter = new ViewPagerAdapter(this, ImagesUrl);
             binding.viewPager.setAdapter(adapter);
@@ -119,6 +119,16 @@ public class AddHotel extends AppCompatActivity {
                 }
             });
         }
+
+        adapterItems = new ArrayAdapter<String>(this, R.layout.drop_down_item, items);
+        binding.spinner.setAdapter(adapterItems);
+
+        binding.spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         //onBack
         binding.back.setOnClickListener(v -> onBackPressed());
@@ -137,7 +147,7 @@ public class AddHotel extends AppCompatActivity {
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupEditHotel(Gravity.TOP);
+
             }
         });
 
@@ -180,10 +190,9 @@ public class AddHotel extends AppCompatActivity {
         String Name = binding.txtName.getText().toString();
         String Address= binding.txtaddress.getText().toString();
         String About= binding.txtabout.getText().toString();
-        String Status= binding.txtstatus.getText().toString();
-        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(About) && !TextUtils.isEmpty(Status) && ImageUri != null) {
+        if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(About) && !TextUtils.isEmpty(item) && ImageUri != null) {
             // now we need a model class
-            Hotel model = new Hotel("", Name, Address, About , Status, UrlsList);
+            Hotel model = new Hotel("", Name, Address, About , item, UrlsList);
             firestore.collection("rating").document(uid).collection("hotels").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
@@ -247,46 +256,12 @@ public class AddHotel extends AppCompatActivity {
         binding.viewPager.setAdapter(adapter);
     }
     //Edit hotel
-    private void Edit(String uid){
+    private void Edit(ArrayList<String> urlsList, String uid){
         String Name = binding.txtName.getText().toString();
         String Address= binding.txtaddress.getText().toString();
         String About= binding.txtabout.getText().toString();
-        String Status= binding.txtstatus.getText().toString();
-
 
     }
 
     //Popup edit image hotel
-    private void PopupEditHotel(int gravity){
-        final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Ebinding = PopupEditProfileBinding.inflate(getLayoutInflater());
-        dialog.setContentView(Ebinding.getRoot());
-
-//        ViewEditProfile();
-
-        Window window = dialog.getWindow();
-        if(window == null){
-            return;
-        }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = gravity;
-        window.setAttributes(windowAttributes);
-        dialog.setCancelable(false);
-
-        Ebinding.mCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
-
-        dialog.show();
-    }
 }

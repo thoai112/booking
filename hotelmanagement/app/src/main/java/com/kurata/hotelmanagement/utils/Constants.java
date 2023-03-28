@@ -17,7 +17,7 @@ public class Constants {
         public static final String P_MOBILE= "mobile";
         public static final String P_ADDRESS= "address";
         public static final String P_ROLE= "role";
-        public static final String P_ZIP = "zip";
+        public static final Boolean P_STATUS = Boolean.valueOf("status");
 
 
         public static final String H_IMG = "img";
