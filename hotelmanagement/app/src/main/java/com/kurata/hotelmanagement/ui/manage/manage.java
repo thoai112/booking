@@ -73,7 +73,7 @@ public class manage extends Fragment {
             @Override
             public void onClick(View view) {
                 Users users = new Users();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,users).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,users).addToBackStack(null).commit();
             }
         });
 
@@ -81,7 +81,7 @@ public class manage extends Fragment {
             @Override
             public void onClick(View view) {
                 Hoteltypes hoteltypes = new Hoteltypes();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,hoteltypes).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,hoteltypes).addToBackStack(null).commit();
 
             }
         });
@@ -90,7 +90,7 @@ public class manage extends Fragment {
             @Override
             public void onClick(View view) {
                 Rooms rooms = new Rooms();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,rooms).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,rooms).addToBackStack(null).commit();
 
             }
         });
@@ -99,7 +99,7 @@ public class manage extends Fragment {
             @Override
             public void onClick(View view) {
                 Hotels hotels = new Hotels();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,hotels).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,hotels).addToBackStack(null).commit();
 
             }
         });
@@ -108,7 +108,7 @@ public class manage extends Fragment {
             @Override
             public void onClick(View view) {
                 RoomType roomtype = new RoomType();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,roomtype).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,roomtype).addToBackStack(null).commit();
             }
         });
 

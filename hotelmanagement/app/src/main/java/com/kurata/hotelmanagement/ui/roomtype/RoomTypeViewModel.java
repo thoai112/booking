@@ -24,7 +24,7 @@ public class RoomTypeViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<Roomtype>> getAllHoteltypeData(){
+    public LiveData<List<Roomtype>> getAllRoomtypeData(){
         return mRoomtype;
     }
 }

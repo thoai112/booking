@@ -87,7 +87,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
         binding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.RecyclerView.setAdapter(recyclerAdapter);
 
-        mViewModel.getAllHoteltypeData().observe(getViewLifecycleOwner(), roomModels -> {
+        mViewModel.getAllRoomtypeData().observe(getViewLifecycleOwner(), roomModels -> {
             list.clear();
             list.addAll(roomModels);
             recyclerAdapter.notifyDataSetChanged();

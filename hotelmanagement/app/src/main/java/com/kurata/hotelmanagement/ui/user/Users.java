@@ -79,14 +79,13 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         String myId = mAuth.getCurrentUser().getUid();
         Log.d("uidtest", myId);
 
-
-
         usersViewModel =  new ViewModelProvider(requireActivity()).get(UsersViewModel.class);
         usersViewModel.init(myId);
 
         recyclerAdapter = new UsersRecyclerAdapter(list, this);
         binding.RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.RecyclerView.setAdapter(recyclerAdapter);
+
 
         usersViewModel.getAllUsersData().observe(getViewLifecycleOwner(), userModels -> {
             list.clear();
@@ -117,6 +116,7 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         return view;
 
     }
+
 
 //    private void setListener(){
 //        binding.back.setOnClickListener(v -> onBackPressed());

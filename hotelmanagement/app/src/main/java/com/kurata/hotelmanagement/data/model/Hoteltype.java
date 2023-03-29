@@ -59,4 +59,9 @@ public class Hoteltype {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
