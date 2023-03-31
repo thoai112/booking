@@ -72,4 +72,8 @@ public class Hotel implements Serializable {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

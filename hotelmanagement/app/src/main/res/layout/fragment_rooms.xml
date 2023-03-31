@@ -81,7 +81,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gridView"
+            android:id="@+id/RecyclerView"
             tools:listitem="@layout/staggere_item"
             android:clipToPadding="false"
             android:visibility="visible"/>

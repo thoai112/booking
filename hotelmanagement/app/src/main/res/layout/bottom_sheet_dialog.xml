@@ -36,7 +36,8 @@
                 android:id="@+id/sphoteltype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionThreshold="1"/>
+                android:completionThreshold="1"
+                android:overScrollMode="always"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -71,7 +72,7 @@
                 android:id="@+id/sphotel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"/>
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -94,15 +95,23 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlined_roomtype"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_250pxh"
             android:layout_height="wrap_content"
             android:hint="@string/epro_status"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
             <AutoCompleteTextView
                 android:id="@+id/sproomtype"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/filter"
+            android:layout_marginStart="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/img_search"/>
 
     </LinearLayout>
 

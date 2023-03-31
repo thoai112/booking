@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kurata.hotelmanagement.data.model.Room;
 import com.kurata.hotelmanagement.data.model.Roomtype;
 import com.kurata.hotelmanagement.utils.Constants;
 import com.kurata.hotelmanagement.utils.Preference;
@@ -42,7 +43,7 @@ public class RoomRepository {
     }
 
 
-    //TODO - GETALL HOTELTYPE
+    //TODO - GETALL ROOMTYPE
     public MutableLiveData<List<Roomtype>> getAllRoomtype() {
         MutableLiveData<List<Roomtype>> allRoomtype = new MutableLiveData<>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -63,24 +64,26 @@ public class RoomRepository {
     }
 
 
-    //TODO - GETALL HOTELS
-//    public MutableLiveData<List<Hotel>> getAllHotels(String uid) {
-//        MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
-//        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-//        firestore.collection("rooms").document(uid).collection("room").addSnapshotListener((value, error) -> {
-//            if (error != null) return;
-//            if (value != null) {
-//                List<Hotel> tempList = new ArrayList<>();
-//                for (DocumentSnapshot document : value.getDocuments()) {
-//                    Hotel model = document.toObject(Hotel.class);
-//                    assert model != null;
-//                    tempList.add(model);
-//                }
-//                allHotel.postValue(tempList);
-//            }
-//        });
-//        return allHotel;
-//    }
+    //TODO - GETALL ROOMS
+    public MutableLiveData<List<Room>> getAllRooms() {
+        MutableLiveData<List<Room>> allRoom = new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        //String hoteltype_id, String hotel_id, String roomtype_id
+        //whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id)
+        firestore.collectionGroup("room").addSnapshotListener((value, error) -> {
+            if (error != null) return;
+            if (value != null) {
+                List<Room> tempList = new ArrayList<>();
+                for (DocumentSnapshot document : value.getDocuments()) {
+                    Room model = document.toObject(Room.class);
+                    assert model != null;
+                    tempList.add(model);
+                }
+                allRoom.postValue(tempList);
+            }
+        });
+        return allRoom;
+    }
 
 
     //update displayImage

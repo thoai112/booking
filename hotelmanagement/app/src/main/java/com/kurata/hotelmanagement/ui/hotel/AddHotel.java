@@ -192,7 +192,7 @@ public class AddHotel extends AppCompatActivity {
         String About= binding.txtabout.getText().toString();
         if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(About) && !TextUtils.isEmpty(item) && ImageUri != null) {
             // now we need a model class
-            Hotel model = new Hotel("", Name, Address, About , item, UrlsList);
+            Hotel model = new Hotel("", Name, Address, About , item, urlsList);
             firestore.collection("rating").document(uid).collection("hotels").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
