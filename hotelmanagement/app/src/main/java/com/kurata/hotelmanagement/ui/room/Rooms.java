@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -82,7 +83,6 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         firestore = FirebaseFirestore.getInstance();
         //getData(firestore,"rating", adapter);
 
-
         mViewModel =  new ViewModelProvider(requireActivity()).get(RoomsViewModel.class);
         mViewModel.init();
 
@@ -91,12 +91,25 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Rbinding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         Rbinding.RecyclerView.setAdapter(recyclerAdapter);
 
-        mViewModel.getAllRoomData().observe(getViewLifecycleOwner(), roomModels -> {
+        mViewModel.getAllRoom().observe(getViewLifecycleOwner(), roomModels -> {
             room.clear();
             room.addAll(roomModels);
             recyclerAdapter.notifyDataSetChanged();
         });
 
+        Rbinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+
+        });
 
         Rbinding.filter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,8 +121,8 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Rbinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getContext(), AddRoom.class);
+                intent.putExtra("id_cu", "kkt");
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
 
@@ -126,17 +139,13 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         // TODO: Use the ViewModel
     }
 
-//    private void recycleradapter()
-//    {
-//
-//    }
 
-    private void filter(String hoteltype_id, String hotel_id, String roomtype_id) {
+    private void filter(String text) {
 
         ArrayList<Room> filteredList = new ArrayList<Room>();
         for (Room item: room){
             Log.e("item", "item is: " +item.getName() +"  \n\n");
-            if (item.getHoteltype_id() == hoteltype_id && item.getHotel_id() == hotel_id && item.getRoomtype_id() == roomtype_id){
+            if (item.getName().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(item);
             }
         }
@@ -147,7 +156,6 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         else {
             recyclerAdapter.setFilteredList(filteredList);
         }
-
 
     }
 
@@ -177,7 +185,8 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Binding.filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filter(shoteltype,shotel,sroomtype);
+//                filter(shoteltype,shotel,sroomtype);
+                recycleradapter();
                 dialog.dismiss();
             }
         });
@@ -187,6 +196,24 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         dialog.show();
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
+    }
+
+    private void recycleradapter()
+    {
+        mViewModel =  new ViewModelProvider(requireActivity()).get(RoomsViewModel.class);
+        mViewModel.init();
+
+        recyclerAdapter = new RoomsRecyclerAdapter(room, this);
+        Rbinding.RecyclerView.setHasFixedSize(true);
+        Rbinding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        Rbinding.RecyclerView.setAdapter(recyclerAdapter);
+
+        mViewModel.getAllRoomData(shoteltype,shotel,sroomtype).observe(getViewLifecycleOwner(), roomModels -> {
+            room.clear();
+            room.addAll(roomModels);
+            recyclerAdapter.notifyDataSetChanged();
+        });
 
     }
 
@@ -269,6 +296,27 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
 
     @Override
     public void onUserClicked(Room room) {
+        onConversationClicked(room);
+    }
 
+    public void onConversationClicked(Room room) {
+
+        Room model = new Room();
+        Intent intent = new Intent(getContext(), AddRoom.class);
+        Bundle bundle = new Bundle();
+        model.setName(room.getName());
+        model.setId(room.getId());
+        model.setAbout(room.getAbout());
+        model.setImage(room.getImage());
+        model.setStatus(room.getStatus());
+        model.setHoteltype_id(room.getHoteltype_id());
+        model.setHotel_id(room.getHotel_id());
+        model.setRoomtype_id(room.getRoomtype_id());
+        model.setPrice(room.getPrice());
+
+        bundle.putSerializable("model",model);
+        intent.putExtra("BUNDLE",bundle);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 }

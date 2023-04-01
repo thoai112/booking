@@ -74,6 +74,7 @@ public class AddRoom extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_add_room);
 
+        Bundle extras = getIntent().getExtras();
         //Init
         ChooseImageList = new ArrayList<>();
         UrlsList = new ArrayList<>();
@@ -93,8 +94,25 @@ public class AddRoom extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance();
         storagereference = mStorage.getReference();
 
+        //get value filter
         getDataHoteltype();
         getDataRoomtype();
+
+        //visible
+        if (extras.get("id_cu")!=null){
+            binding.btnEdit.setVisibility(View.INVISIBLE);
+            binding.btnDelete.setVisibility(View.INVISIBLE);
+            binding.btnSubmit.setVisibility(View.VISIBLE);
+        }
+        else{
+            Bundle args = getIntent().getBundleExtra("BUNDLE");
+            Room object = (Room) args.getSerializable("model");
+            binding.mHoteltype.setText(object.getHoteltype_id());
+
+
+        }
+
+
 
         //choose image --> permission
         binding.UploadImage.setOnClickListener(new View.OnClickListener() {

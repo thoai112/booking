@@ -19,12 +19,16 @@ public class RoomsViewModel extends ViewModel {
             return;
         }
         mRepository = RoomRepository.getInstance();
-        mRoom=mRepository.getAllRooms();
+        mRoom=mRepository.getAllRoom();
         //hoteltype_id, hotel_id, room_id
 
     }
 
-    public LiveData<List<Room>> getAllRoomData(){
+    public LiveData<List<Room>> getAllRoom(){
         return mRoom;
+    }
+    public LiveData<List<Room>> getAllRoomData(String hoteltype_id, String hotel_id, String room_id){
+        return mRoom=mRepository.getAllRooms(hoteltype_id, hotel_id, room_id);
+
     }
 }

@@ -63,11 +63,17 @@ public class RoomsRecyclerAdapter extends RecyclerView.Adapter<RoomsRecyclerAdap
             ArrayList<String> arrayList = room.getImage();
             Glide.with(binding.staggeredImages).load(arrayList.get(0).toString()).into(binding.staggeredImages);
             binding.getRoot().setOnClickListener(v -> {
-//                Room model = new Room();
-//                model.setName(room.getName());
-//                model.setId(room.getId());
-//
-//                roomListener.onUserClicked(model);
+                Room model = new Room();
+                model.setName(room.getName());
+                model.setId(room.getId());
+                model.setAbout(room.getAbout());
+                model.setImage(room.getImage());
+                model.setStatus(room.getStatus());
+                model.setHoteltype_id(room.getHoteltype_id());
+                model.setHotel_id(room.getHotel_id());
+                model.setRoomtype_id(room.getRoomtype_id());
+                model.setPrice(room.getPrice());
+                roomListener.onUserClicked(model);
             });
         }
     }

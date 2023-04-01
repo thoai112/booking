@@ -65,7 +65,28 @@ public class RoomRepository {
 
 
     //TODO - GETALL ROOMS
-    public MutableLiveData<List<Room>> getAllRooms() {
+    public MutableLiveData<List<Room>> getAllRooms(String hoteltype_id, String hotel_id, String roomtype_id) {
+        MutableLiveData<List<Room>> allRoom = new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        //String hoteltype_id, String hotel_id, String roomtype_id
+        //whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id)
+        firestore.collectionGroup("room").whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id).addSnapshotListener((value, error) -> {
+            if (error != null) return;
+            if (value != null) {
+                List<Room> tempList = new ArrayList<>();
+                for (DocumentSnapshot document : value.getDocuments()) {
+                    Room model = document.toObject(Room.class);
+                    assert model != null;
+                    tempList.add(model);
+                }
+                allRoom.postValue(tempList);
+            }
+        });
+        return allRoom;
+    }
+
+
+    public MutableLiveData<List<Room>> getAllRoom() {
         MutableLiveData<List<Room>> allRoom = new MutableLiveData<>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         //String hoteltype_id, String hotel_id, String roomtype_id
@@ -84,7 +105,6 @@ public class RoomRepository {
         });
         return allRoom;
     }
-
 
     //update displayImage
     public void uploadImage(final Uri imageProfile, String document, String uid) {
