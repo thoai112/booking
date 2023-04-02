@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -19,6 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kurata.hotelmanagement.data.model.Popula;
 import com.kurata.hotelmanagement.data.model.User;
 import com.kurata.hotelmanagement.utils.Preference;
 
@@ -34,7 +36,7 @@ public class Repository {
     private static Repository instance;
     private  User user = new User();
     private ArrayList<User> arraylist =new ArrayList<>();
-
+    private ArrayList<Popula> popularlist = new ArrayList<>();
 
 
     public static Repository getInstance(){
@@ -135,8 +137,45 @@ public class Repository {
         return allUser;
 
     }
+    //todo - get pop
 
+    public MutableLiveData<List<String>> getPopz() {
+        MutableLiveData<List<String>> allpop= new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        //ArrayList<String> test = new ArrayList<>();
+        CollectionReference applicationsRef = firestore.collection("popular");
+        DocumentReference applicationIdRef = applicationsRef.document("pop");
+        applicationIdRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<String> tempList = new ArrayList<String>();
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    tempList = (List<String>) document.get("hotel_id");
+                }
+                allpop.postValue(tempList);
+            }
+        });
+        return allpop;
+    }
 
+    public MutableLiveData<List<String>> getPoproom() {
+        MutableLiveData<List<String>> allpop= new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        //ArrayList<String> test = new ArrayList<>();
+        CollectionReference applicationsRef = firestore.collection("popular");
+        DocumentReference applicationIdRef = applicationsRef.document("pop");
+        applicationIdRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<String> tempList = new ArrayList<String>();
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    tempList = (List<String>) document.get("room_id");
+                }
+                allpop.postValue(tempList);
+            }
+        });
+        return allpop;
+    }
 
 
 

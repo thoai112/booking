@@ -1,20 +1,26 @@
 package com.kurata.hotelmanagement.ui.room;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,6 +63,7 @@ public class AddRoom extends AppCompatActivity {
     private String shotel;
     private String sroomtype;
 
+
     //Image
     Uri ImageUri;
     ArrayList<Uri> ChooseImageList;
@@ -94,25 +101,40 @@ public class AddRoom extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance();
         storagereference = mStorage.getReference();
 
-        //get value filter
-        getDataHoteltype();
+
+
         getDataRoomtype();
+        getDataHoteltype();
 
         //visible
         if (extras.get("id_cu")!=null){
             binding.btnEdit.setVisibility(View.INVISIBLE);
             binding.btnDelete.setVisibility(View.INVISIBLE);
             binding.btnSubmit.setVisibility(View.VISIBLE);
+
+            //get value filter
         }
         else{
             Bundle args = getIntent().getBundleExtra("BUNDLE");
             Room object = (Room) args.getSerializable("model");
-            binding.mHoteltype.setText(object.getHoteltype_id());
+            binding.outlinedHotel.setVisibility(View.VISIBLE);
+            binding.txtName.setText(object.getName());
+            binding.txtabout.setText(object.getAbout());
+            binding.txtprice.setText(object.getPrice());
+            ImagesUrl = object.getImage();
+            ViewPagerAdapter adapter = new ViewPagerAdapter(this, ImagesUrl);
+            binding.viewPager.setAdapter(adapter);
+            binding.status.setText(object.getStatus());
 
+            //delete
+            binding.btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DeleteRoom(firestore,object.getRoomtype_id(), object.getId());
+                }
+            });
 
         }
-
-
 
         //choose image --> permission
         binding.UploadImage.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +156,7 @@ public class AddRoom extends AppCompatActivity {
         });
 
         //Submit
-        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+        binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 UploadIMages(sroomtype);
@@ -158,7 +180,6 @@ public class AddRoom extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Roomtype item = (Roomtype) adapterView.getItemAtPosition(i);
                 sroomtype = item.getId();
-
             }
         });
         rViewModel.getAllRoomtypeData().observe(this, roomtypes  -> {
@@ -169,6 +190,7 @@ public class AddRoom extends AppCompatActivity {
     }
 
     private void getDataHoteltype(){
+
         zViewModel = new ViewModelProvider(this).get(HoteltypesViewModel.class);
         zViewModel.init();
 
@@ -180,16 +202,16 @@ public class AddRoom extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Hoteltype item = (Hoteltype) adapterView.getItemAtPosition(i);
                 shoteltype = item.getId();
-
                 binding.outlinedHotel.setVisibility(View.VISIBLE);
                 getDataHotel(shoteltype);
             }
         });
-        zViewModel.getAllHoteltypeData().observe(this, hoteltypes  -> {
+        zViewModel.getHoteltypeActivateData().observe(this, hoteltypes  -> {
             hoteltype.clear();
             hoteltype.addAll(hoteltypes);
             adapter.notifyDataSetChanged();
         });
+
     }
 
     private void getDataHotel(String uid){
@@ -207,14 +229,38 @@ public class AddRoom extends AppCompatActivity {
                 shotel = item.getId();
             }
         });
-        hViewModel.getAllHotelData(uid).observe(this, hotelModels -> {
+        hViewModel.getHotelActivateData(uid).observe(this, hotelModels -> {
             hotel.clear();
             hotel.addAll(hotelModels);
             adapter.notifyDataSetChanged();
         });
+
+
     }
 
-    //set + upload image --> firestore
+    //todo - Delete room
+    private void DeleteRoom(FirebaseFirestore firestore, String uid, String id){
+        firestore.collection("rooms").document(uid).collection("room").document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        Toast.makeText(getApplicationContext(), "Delete successfully deleted!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                        Toast.makeText(getApplicationContext(), "Error deleting document.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    //TODO - set + upload image --> firestore
 
     //Upload image --> firestore
     private void UploadIMages(String uid) {
@@ -244,8 +290,6 @@ public class AddRoom extends AppCompatActivity {
                 Toast.makeText(this, "Please fill All Field", Toast.LENGTH_SHORT).show();
             }
         }
-
-
     }
 
 
@@ -270,7 +314,8 @@ public class AddRoom extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 // if data uploaded successfully then show ntoast
                                 Toast.makeText(AddRoom.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-
+                                SystemClock.sleep(500);
+                                onBackPressed();
                             }
                         });
                 }
@@ -282,7 +327,6 @@ public class AddRoom extends AppCompatActivity {
         }
         // if you want to clear viewpager after uploading Images
         ChooseImageList.clear();
-
 
     }
     //Check permission up load image --> multifile

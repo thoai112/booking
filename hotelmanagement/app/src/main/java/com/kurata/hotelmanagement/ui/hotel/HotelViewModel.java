@@ -21,7 +21,15 @@ public class HotelViewModel extends ViewModel {
         mRepository = HotelRepository.getInstance();
     }
 
+    public LiveData<List<Hotel>> getAllHotel(){
+        return mHotels=mRepository.getAllHotel();
+    }
+
     public LiveData<List<Hotel>> getAllHotelData(String uid){
         return mHotels=mRepository.getAllHotels(uid);
+    }
+
+    public LiveData<List<Hotel>> getHotelActivateData(String uid){
+        return mHotels=mRepository.getHotelActivate(uid);
     }
 }

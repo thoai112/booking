@@ -27,4 +27,8 @@ public class RoomTypeViewModel extends ViewModel {
     public LiveData<List<Roomtype>> getAllRoomtypeData(){
         return mRoomtype;
     }
+
+    public LiveData<List<Roomtype>> getRoomtypeActivateData(){
+        return mRoomtype = mRepository.getRoomtypeActivate();
+    }
 }

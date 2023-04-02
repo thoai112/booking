@@ -27,6 +27,8 @@ public class HoteltypesViewModel extends ViewModel {
         return mHoteltype;
     }
 
-
+    public LiveData<List<Hoteltype>> getHoteltypeActivateData(){
+        return mHoteltype = mRepository.getHoteltypeActivate();
+    }
 
 }

@@ -51,7 +51,6 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
 
     private static final String TAG = "RoomtypesFragment_Tag";
     ArrayList<Roomtype> list = new ArrayList<Roomtype>();
-    ArrayAdapter<String> adapterItems;
     private static final int REQUEST_CODE = 1;
     private Preference preferenceManager;
     //private FirebaseAuth mAuth;
@@ -60,11 +59,14 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
     private PopupHoteltypeBinding UBinding;
     private Uri selectedImage;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    String item;
-    Boolean status = true;
 
     @Inject
     RoomtypesRecyclerAdapter recyclerAdapter;
+
+    //Spiner
+    ArrayAdapter<String> adapterItems;
+    private String[] items =  {"Activate","Disable"};
+    String item;
 
 
 
@@ -140,7 +142,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
     }
 
     private void PopupAddRoomtype(int gravity) {
-        String[] items =  {"Activate","Disable"};
+//        String[] items =  {"Activate","Disable"};
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupHoteltypeBinding.inflate(getLayoutInflater());
@@ -190,7 +192,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
                 DocumentReference addedDocRef = firestore.collection("rating").document();
                 data.put("id",addedDocRef.getId().toString());
                 data.put("img","");
-                if(item == "Activate"){
+                if(item == items[0]){
                     data.put("status",Boolean.TRUE);
                 }else{
                     data.put("status",Boolean.FALSE);
@@ -267,7 +269,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
         }
     }
 
-    private void PopupRoomtype(int gravity, String uid) {
+    private void PopupRoomtype(int gravity, String uid, Boolean status) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupHoteltypeBinding.inflate(getLayoutInflater());
@@ -285,6 +287,22 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
 
+        if(status){
+            UBinding.autoCompleteTxt.setText(items[0]);
+        }
+        else{
+            UBinding.autoCompleteTxt.setText(items[1]);
+        }
+
+        adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
+        UBinding.autoCompleteTxt.setAdapter(adapterItems);
+
+        UBinding.autoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                item = adapterView.getItemAtPosition(i).toString();
+            }
+        });
 
         UBinding.image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,6 +310,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
                 showGallery();
             }
         });
+
 
         UBinding.mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,7 +359,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
 
     @Override
     public void onUserClicked(Roomtype roomtype) {
-        PopupRoomtype(Gravity.CENTER, roomtype.getId());
+        PopupRoomtype(Gravity.CENTER, roomtype.getId(),roomtype.isStatus());
         UBinding.txttitle.setText(roomtype.getName());
         Glide.with(UBinding.image).load(roomtype.getImg()).into(UBinding.image);
     }

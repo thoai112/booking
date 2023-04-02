@@ -235,7 +235,7 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
             }
         });
 
-        rViewModel.getAllRoomtypeData().observe(getViewLifecycleOwner(), roomtypes  -> {
+        rViewModel.getRoomtypeActivateData().observe(getViewLifecycleOwner(), roomtypes  -> {
             roomtype.clear();
             roomtype.addAll(roomtypes);
             adapter.notifyDataSetChanged();
@@ -263,7 +263,7 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
             }
         });
 
-        zViewModel.getAllHoteltypeData().observe(getViewLifecycleOwner(), hotelModels -> {
+        zViewModel.getHoteltypeActivateData().observe(getViewLifecycleOwner(), hotelModels -> {
             list.clear();
             list.addAll(hotelModels);
             adapter.notifyDataSetChanged();
@@ -287,7 +287,7 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
                 shotel = item.getId();
             }
         });
-        hViewModel.getAllHotelData(uid).observe(getViewLifecycleOwner(), hotelModels -> {
+        hViewModel.getHotelActivateData(uid).observe(getViewLifecycleOwner(), hotelModels -> {
             hotel.clear();
             hotel.addAll(hotelModels);
             adapter.notifyDataSetChanged();
@@ -319,4 +319,5 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
+
 }

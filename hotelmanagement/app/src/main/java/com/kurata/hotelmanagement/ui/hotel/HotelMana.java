@@ -21,15 +21,18 @@ import com.kurata.hotelmanagement.databinding.FragmentHotelBinding;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelListener {
 
     private static final String TAG = "HotelsFragment_Tag";
     ArrayList<Hotel> list = new ArrayList<Hotel>();
     private HotelViewModel mViewModel;
     private FragmentHotelBinding binding;
+    private String Hoteltype_id;
 
-
-    private HotelsRecyclerAdapter recyclerAdapter;
+    @Inject
+    HotelsRecyclerAdapter recyclerAdapter;
 
 
     public HotelMana() {
@@ -47,6 +50,7 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
         mViewModel.init();
 
         Log.d("UUID", bundle.getString("id"));
+        Hoteltype_id = bundle.getString("id");
 
         recyclerAdapter = new HotelsRecyclerAdapter(list,this);
         binding.gridView.setHasFixedSize(true);
@@ -133,6 +137,7 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
         model.setImage(hotel.getImage());
 
         bundle.putSerializable("model",model);
+        intent.putExtra("ht_id", Hoteltype_id);
         intent.putExtra("BUNDLE",bundle);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);

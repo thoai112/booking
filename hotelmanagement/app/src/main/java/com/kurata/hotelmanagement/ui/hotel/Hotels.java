@@ -40,10 +40,7 @@ public class Hotels extends Fragment implements HoteltypesRecyclerAdapter.Hotelt
     @Inject
     HoteltypesRecyclerAdapter recyclerAdapter;
 
-
-
     public Hotels () {
-
     }
 
     @Override

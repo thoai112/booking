@@ -87,8 +87,26 @@ public class HotelRepository {
                 return allHotel;
         }
 
+        public MutableLiveData<List<Hotel>> getAllHotel() {
+                MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collectionGroup("hotels").addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<Hotel> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        Hotel model = document.toObject(Hotel.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allHotel.postValue(tempList);
+                        }
+                });
+                return allHotel;
+        }
 
-        //update displayImage
+
+        //todo - update displayImage
         public void uploadImage(final Uri imageProfile, String document, String uid) {
                 final StorageReference reference = storage.getReference()
                         .child("categoryhotel_picture")
@@ -138,6 +156,46 @@ public class HotelRepository {
                         }
                 });
         }
+
+        //get hoteltype activate
+        public MutableLiveData<List<Hoteltype>> getHoteltypeActivate() {
+                MutableLiveData<List<Hoteltype>> allHoteltype = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collection("rating").whereEqualTo("status",Boolean.TRUE).addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<Hoteltype> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        Hoteltype model = document.toObject(Hoteltype.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allHoteltype.postValue(tempList);
+                        }
+                });
+                return allHoteltype;
+
+        }
+
+        //get value hotel activate
+        public MutableLiveData<List<Hotel>> getHotelActivate(String uid) {
+                MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collection("rating").document(uid).collection("hotels").whereEqualTo("status", "Activate").addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<Hotel> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        Hotel model = document.toObject(Hotel.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allHotel.postValue(tempList);
+                        }
+                });
+                return allHotel;
+        }
+
 
 
 }

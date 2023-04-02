@@ -11,6 +11,7 @@ import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.databinding.FragmentManageBinding;
 import com.kurata.hotelmanagement.ui.hotel.Hotels;
 import com.kurata.hotelmanagement.ui.hoteltype.Hoteltypes;
+import com.kurata.hotelmanagement.ui.popular.Popular;
 import com.kurata.hotelmanagement.ui.room.Rooms;
 import com.kurata.hotelmanagement.ui.roomtype.RoomType;
 import com.kurata.hotelmanagement.ui.user.Users;
@@ -109,6 +110,14 @@ public class manage extends Fragment {
             public void onClick(View view) {
                 RoomType roomtype = new RoomType();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,roomtype).addToBackStack(null).commit();
+            }
+        });
+
+        binding.mPopular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Popular popular = new Popular();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,popular).addToBackStack(null).commit();
             }
         });
 

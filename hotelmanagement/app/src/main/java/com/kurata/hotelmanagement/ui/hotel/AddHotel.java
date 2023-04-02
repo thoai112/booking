@@ -1,20 +1,26 @@
 package com.kurata.hotelmanagement.ui.hotel;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -48,6 +54,7 @@ public class AddHotel extends AppCompatActivity {
     ArrayAdapter<String> adapterItems;
     private String[] items =  {"Activate","Disable"};
     String item;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +95,6 @@ public class AddHotel extends AppCompatActivity {
             binding.UploadImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //binding.UploadImage.setVisibility(View.INVISIBLE);
-                    //binding.viewPager.setVisibility(View.VISIBLE);
                     CheckPermission();
                 }
             });
@@ -107,7 +112,6 @@ public class AddHotel extends AppCompatActivity {
             ViewPagerAdapter adapter = new ViewPagerAdapter(this, ImagesUrl);
             binding.viewPager.setAdapter(adapter);
 
-
             //choose image --> permission
             binding.UploadImage.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,6 +120,13 @@ public class AddHotel extends AppCompatActivity {
                     //binding.viewPager.setVisibility(View.VISIBLE);
                     //PopupEditHotel(Gravity.TOP);
                     CheckPermission();
+                }
+            });
+
+            binding.btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DeleteHotel(firestore,extras.getString("ht_id"),object.getId());
                 }
             });
         }
@@ -182,7 +193,6 @@ public class AddHotel extends AppCompatActivity {
             }
         }
 
-
     }
     //link image --> firestore
     private void StoreLinks(ArrayList<String> urlsList, String uid) {
@@ -205,7 +215,8 @@ public class AddHotel extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     // if data uploaded successfully then show ntoast
                                     Toast.makeText(AddHotel.this, "Your data Uploaded Successfully", Toast.LENGTH_SHORT).show();
-
+                                    SystemClock.sleep(500);
+                                    onBackPressed();
                                 }
                             });
                 }
@@ -262,6 +273,28 @@ public class AddHotel extends AppCompatActivity {
         String About= binding.txtabout.getText().toString();
 
     }
+
+    //todo  - delete
+    private void DeleteHotel(FirebaseFirestore firestore, String uid, String id){
+        firestore.collection("rating").document(uid).collection("hotels").document(id)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        Toast.makeText(getApplicationContext(), "Delete successfully deleted!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                        Toast.makeText(getApplicationContext(), "Error deleting document.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     //Popup edit image hotel
 }
