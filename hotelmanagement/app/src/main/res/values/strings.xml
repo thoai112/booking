@@ -245,8 +245,11 @@
     <!--    TODO: HOTEL MANAGER -->
     <string name="title_manage_hotel">Hotel Manager</string>
     <string name="hm_user">Nguời dùng</string>
-    <string name="hm_hotel">Hotel</string>
+    <string name="hm_hotel">Khách sạn</string>
+    <string name="hm_hotel_type">Loại khách sạn</string>
+    <string name="hm_room_type">Loại phòng</string>
     <string name="hm_room">Phòng</string>
+    <string name="hm_pop">Phổ biến</string>
     <string name="hm_review">Đánh giá</string>
 
     <!--    TODO: USER MANAGER -->
@@ -279,6 +282,10 @@
 
     <!--    TODO: HOTELTYPE -->
     <string name="title_hoteltype">Hotel Type</string>
+    <string name="title_roomtype">Room Type</string>
+    <string name="title_rooms">Rooms</string>
+    <string name="title_hotels">Hotels</string>
+    <string name="title_pops">Popular</string>
 
 
     <!--    TODO: MAP API KEY -->

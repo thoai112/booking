@@ -20,7 +20,6 @@ public class HoteltypesViewModel extends ViewModel {
         }
         mRepository = HotelRepository.getInstance();
         mHoteltype=mRepository.getAllHoteltype();
-
     }
 
     public LiveData<List<Hoteltype>> getAllHoteltypeData(){

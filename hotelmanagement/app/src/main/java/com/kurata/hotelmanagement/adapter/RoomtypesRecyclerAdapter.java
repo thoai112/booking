@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.data.model.Roomtype;
 import com.kurata.hotelmanagement.databinding.StaggereItemBinding;
 
@@ -63,6 +64,12 @@ public class RoomtypesRecyclerAdapter extends RecyclerView.Adapter<RoomtypesRecy
         void setData(Roomtype roomtype, RoomtypeListener roomtypeListener){
             binding.mTitle.setText(roomtype.getName());
             Glide.with(binding.staggeredImages).load(roomtype.getImg()).into(binding.staggeredImages);
+            if(roomtype.isStatus()){
+                Glide.with(binding.status).load(R.drawable.activate).into(binding.status);
+            }
+            else{
+                Glide.with(binding.status).load(R.drawable.disable).into(binding.status);
+            }
             binding.getRoot().setOnClickListener(v -> {
                 Roomtype model = new Roomtype();
                 model.setName(roomtype.getName());

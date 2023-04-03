@@ -1,9 +1,7 @@
 package com.kurata.hotelmanagement.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,18 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.data.model.User;
+import com.kurata.hotelmanagement.databinding.UsersViewItemBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import io.grpc.Context;
 
 public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdapter.UserViewHolder>  {
     //implements Filterable
     private List<User> list;
     private UserListener userListener;
-    Context mcontext;
 
 
     public UsersRecyclerAdapter (List<User> list, UserListener userListener) {
@@ -33,22 +28,17 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.users_view_item, parent, false);
-        return new UserViewHolder(view);
+        return new UserViewHolder(
+                UsersViewItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false)
+        );
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User model = list.get(position);
         //animation
-
         //data
-        holder.fullName.setText(model.getfullName());
-        holder.email.setText(model.getEmail());
-        Glide.with(holder.avatar).load(model.getAvatar()).into(holder.avatar);
-        holder.itemView.setOnClickListener(v -> {
-            userListener.onUserClicked(model);
-        });
+        holder.setData(list.get(position),userListener);
     }
 
     @Override
@@ -63,15 +53,38 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
 
-        TextView fullName, email;
-        CircleImageView avatar;
+        UsersViewItemBinding binding;
 
-        public UserViewHolder(@NonNull View itemView) {
-            super(itemView);
-            fullName= itemView.findViewById(R.id.fullName);
-            email = itemView.findViewById(R.id.email);
-            avatar = itemView.findViewById(R.id.avatar);
+        public UserViewHolder(UsersViewItemBinding usersViewItemBinding){
+            super(usersViewItemBinding.getRoot());
+            binding = usersViewItemBinding;
         }
+
+        void setData(User user, UserListener userListener){
+            binding.fullName.setText(user.getfullName());
+            binding.email.setText(user.getEmail());
+            Glide.with(binding.avatar).load(user.getAvatar()).into(binding.avatar);
+
+            if(user.isStatus()){
+                Glide.with(binding.status).load(R.drawable.activate).into(binding.status);
+            }
+            else{
+                Glide.with(binding.status).load(R.drawable.disable).into(binding.status);
+            }
+            binding.getRoot().setOnClickListener(v -> {
+                User model = new User();
+                model.setfullName(user.getfullName());
+                model.setEmail(user.getEmail());
+                model.setAddress(user.getAddress());
+                model.setMobile(user.getMobile());
+                model.setRole(user.getRole());
+                model.setAvatar(user.getAvatar());
+                model.setId(user.getId());
+                model.setStatus(user.isStatus());
+                userListener.onUserClicked(model);
+            });
+        }
+
     }
 
     public interface UserListener {

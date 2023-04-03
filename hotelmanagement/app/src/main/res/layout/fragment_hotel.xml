@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:orientation="vertical"
-            android:text="@string/title_hoteltype"
+            android:text="@string/title_hotels"
             android:textColor="#ffffff"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
