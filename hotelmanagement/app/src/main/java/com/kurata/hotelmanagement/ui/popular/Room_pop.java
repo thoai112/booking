@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.RoomsRecyclerAdapter;
 import com.kurata.hotelmanagement.data.model.Popula;
@@ -34,6 +38,7 @@ import com.kurata.hotelmanagement.databinding.PopupHoteltypeBinding;
 import com.kurata.hotelmanagement.ui.room.RoomsViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -217,41 +222,9 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
             @Override
             public void onClick(View view) {
 
-                List<String> update = new ArrayList<>();
-                for (String value : room_id){
-                    if (item.equals(items[1]) && value.equals(id)){
-                        update.addAll(room_id);
-                        room_id.remove(id);
-                        update.remove(id);
-                        break;
-                    }
-                    else if (item.equals(items[1]) && !value.equals(id)){
-                        update.addAll(room_id);
-                        break;
-                    }
-                    else if(item.equals(items[0]) && !value.equals(id) ){
-                        room_id.add(id);
-                        update.addAll(room_id);
-                        break;
-                    }
-//                    else{
-//                        room_id.add(id);
-//                        update.addAll(room_id);
-//                        break;
-//                    }
-
-//                    else {
-//                        room_id.add(id);
-//                        update.addAll(room_id);
-//                    }
-
-                }
-
-//                Toast.makeText(getActivity(), "test "+ room_id.toString(), Toast.LENGTH_SHORT).show();
-//              Toast.makeText(getActivity(), "new test" + update.toString(), Toast.LENGTH_SHORT).show();
-                for (String x : update){
-                    Log.d("test", x.toString());
-                }
+                Log.d("ID STATUS", room_id.toString());
+                updateStatus(id, check(id));
+                Log.d("ID STATUS", room_id.toString());
 
             }
         });
@@ -259,6 +232,7 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
         dialog.show();
 
     }
+
     public void init(){
         UBinding.image.setVisibility(View.GONE);
         UBinding.rate.setVisibility(View.GONE);
@@ -268,6 +242,7 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
         UBinding.main.setLayoutParams(params);
     }
 
+    //TODO - check Status
     public Boolean check(String id){
         for (String value : room_id)
         {
@@ -278,24 +253,43 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
         }
         return FALSE;
     }
-
-    public List<String> updateStatus(String id){
-        List<String> update = new ArrayList<String>();
-        for (String value : room_id){
-            if((item.equals(items[0]) && value.equals(id)) || (item.equals(items[1]) && value.equals(id)) ){
-                update = room_id;
-            }
-            else if (item.equals(items[1]) && value.equals(id)){
-                update.add(value);
-            }
-            else{
-                update = room_id;
-                update.add(id);
+    //todo - update status;
+    public void updateStatus(String id,Boolean check){
+        if (check){
+            if(item.equals(items[1])){
+                room_id.remove(id);
+                Update((ArrayList<String>) room_id);
             }
         }
-        return update;
+        else{
+            if(item.equals(items[0])){
+                room_id.add(id);
+                Update((ArrayList<String>) room_id);
+            }
+        }
     }
 
+    //todo - update status --> firestore
+
+    private void Update(ArrayList<String> urlsList) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        if (!TextUtils.isEmpty(UBinding.autoCompleteTxt.getText())) {
+
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("room_id", urlsList);
+            DocumentReference reference = firestore.collection("popular").document("pop");
+            reference.update(data).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Update Success", Toast.LENGTH_SHORT).show();
+                    //dialog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+    // todo - click
     @Override
     public void onUserClicked(Room room) {
         Popup(Gravity.CENTER, room.getId());

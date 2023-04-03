@@ -142,7 +142,6 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
     }
 
     private void PopupAddRoomtype(int gravity) {
-//        String[] items =  {"Activate","Disable"};
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupHoteltypeBinding.inflate(getLayoutInflater());
@@ -317,7 +316,12 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
             public void onClick(View view) {
                 HashMap<String, Object> roomtype = new HashMap<>();
                 roomtype.put("name",UBinding.txttitle.getText().toString());
-                //hoteltype.put("",UBinding.txtrate.getText().toString());
+                if(item.equals(items[0])){
+                    roomtype.put("status", Boolean.TRUE);
+                }else{
+                    roomtype.put("status", Boolean.FALSE);
+                }
+
 
                 if(selectedImage!=null){
                     RoomRepository repository = new RoomRepository();
@@ -361,6 +365,7 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
     public void onUserClicked(Roomtype roomtype) {
         PopupRoomtype(Gravity.CENTER, roomtype.getId(),roomtype.isStatus());
         UBinding.txttitle.setText(roomtype.getName());
+        UBinding.txtrate.setVisibility(View.GONE);
         Glide.with(UBinding.image).load(roomtype.getImg()).into(UBinding.image);
     }
 }

@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,9 +27,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.HotelsRecyclerAdapter;
@@ -39,6 +38,7 @@ import com.kurata.hotelmanagement.databinding.PopupHoteltypeBinding;
 import com.kurata.hotelmanagement.ui.hotel.HotelViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -214,8 +214,9 @@ public class Popular extends Fragment implements HotelsRecyclerAdapter.HotelList
         UBinding.mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(getActivity(), "test "+ hotel_id.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("ID STATUS", hotel_id.toString());
+                updateStatus(id, check(id));
+                Log.d("ID STATUS", hotel_id.toString());
             }
         });
 
@@ -241,20 +242,41 @@ public class Popular extends Fragment implements HotelsRecyclerAdapter.HotelList
         }
         return FALSE;
     }
-
-    public void getHotel_id(){
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        CollectionReference applicationsRef = firestore.collection("popular");
-        DocumentReference applicationIdRef = applicationsRef.document("pop");
-        applicationIdRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    hotel_id = (List<String>) document.get("hotel_id");
-                    Log.d("test hotel_id", hotel_id.toString());
-                }
+    //todo - update status;
+    public void updateStatus(String id,Boolean check){
+        if (check){
+            if(item.equals(items[1])){
+                hotel_id.remove(id);
+                Update((ArrayList<String>) hotel_id);
             }
-        });
+        }
+        else{
+            if(item.equals(items[0])){
+                hotel_id.add(id);
+                Update((ArrayList<String>) hotel_id);
+            }
+        }
+    }
+
+    //todo - update status --> firestore
+
+    private void Update(ArrayList<String> urlsList) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        if (!TextUtils.isEmpty(UBinding.autoCompleteTxt.getText())) {
+
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("hotel_id", urlsList);
+            DocumentReference reference = firestore.collection("popular").document("pop");
+            reference.update(data).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getActivity(), "Update Success", Toast.LENGTH_SHORT).show();
+                    //dialog.dismiss();
+                } else {
+                    Toast.makeText(getActivity(), "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
     }
 
     @Override
