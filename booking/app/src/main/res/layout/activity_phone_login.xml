@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLogIn"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.phonelogin.Phone_login"
+    style="@style/groupStylewhite_A700">
+
+
+    <LinearLayout android:id="@+id/linearColumnarrowleft"
+        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_40pxv"
+        android:layout_marginEnd="@dimen/_36pxh"
+        android:layout_marginStart="@dimen/_36pxh"
+        android:layout_marginTop="@dimen/_40pxv"
+        android:layout_width="match_parent" android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarToolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" app:contentInsetStart="0dp">
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/imageNext"
+            android:layout_width="357dp"
+            android:layout_height="142dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_60pxv"
+            android:layout_marginEnd="@dimen/_10pxh"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_next" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtphone"
+            style="@style/etSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_59pxv"
+            android:background="@drawable/rectangle_bg_gray_200_radius_20"
+            android:ellipsize="end"
+            android:hint="@string/lbl_your_phone"
+            android:inputType="textEmailAddress"
+            android:paddingStart="@dimen/_16pxh"
+            android:paddingTop="@dimen/_17pxv"
+            android:paddingEnd="@dimen/_30pxh"
+            android:paddingBottom="@dimen/_18pxv"
+            android:singleLine="true"
+            android:textColorHint="@color/bluegray_400"
+            tools:ignore="Autofill" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatButton
+                android:ellipsize="end" android:gravity="center"
+                android:id="@+id/btnLogin"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16pxv"
+                android:layout_width="match_parent"
+                android:paddingBottom="@dimen/_15pxv"
+                android:paddingEnd="@dimen/_30pxh"
+                android:paddingStart="@dimen/_30pxh"
+                android:paddingTop="@dimen/_15pxv"
+                android:singleLine="true"
+                android:text="@string/lbl_login"
+                android:textAllCaps="false"
+                style="@style/btnSolidRounded_1" tools:text="@string/lbl_login"/>
+            <ProgressBar
+                android:id="@+id/bar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

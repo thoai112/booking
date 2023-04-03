@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">booking</string>
+    <string name="msg_welcome_to_stay">Hello</string>
+    <string name="lbl_your_email">Your Email</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_login">Login</string>
+    <string name="msg_forgot_password">Forgot password</string>
+    <string name="lbl_or">Or</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="didn_t_receive_otp">"Didn't receive the OTP ?"</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="get_otp">Verify code</string>
+    <string name="phone_login">Using phone number</string>
+    <string name="title_activity_phone_login">phone_login</string>
+    <string name="lbl_your_phone">Your Phone</string>
+    <string name="msg_the_email_takes">"The email takes a couple minutes to arrive.Still didn't arrived yet?"</string>
+    <string name="lbl_log_in2">Log In</string>
+    <string name="lbl_back">Back</string>
+
+    <string name="msg_continue_with_f">Continue With Facebook</string>
+    <string name="lbl_send_email">Send Email</string>
+    <string name="msg_continue_with_g">Continue With Google</string>
+    <string name="msg_don_have_acc">"Don't have an account?"</string>
+    <string name="msg_sign_up">Sign up</string>
+
+<!--    sign up-->
+    <string name="fullname">Full Name</string>
+    <string name="email">Your Email</string>
+    <string name="address">Address</string>
+    <string name="mobile">Mobile</string>
+    <string name="pass">Password</string>
+    <string name="repass">Re-Enter Password</string>
+    <string name="sendcode">Send code</string>
+    <string name="policy">By ticking this you agree our term and condition here</string>
+
+
+
+
+</resources>
