@@ -32,7 +32,14 @@
     <string name="repass">Re-Enter Password</string>
     <string name="sendcode">Send code</string>
     <string name="policy">By ticking this you agree our term and condition here</string>
-
+<!--   account -->
+    <string name="acc_fullname">Full Name</string>
+    <string name="acc_email">Email</string>
+    <string name="acc_address">Address</string>
+    <string name="acc_mobile">Mobile</string>
+    <string name="pop_currentpass">Current Password</string>
+    <string name="pop_newpass">New Password</string>
+    <string name="pop_confirmpass">Confirm Password</string>
 
 
 

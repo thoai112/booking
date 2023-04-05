@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -44,26 +45,6 @@ public class Otp extends AppCompatActivity {
         setListener();
     }
 
-//    private void init(){
-//        mCode1 = findViewById(R.id.inputCode1);
-//        mCode2 = findViewById(R.id.inputCode2);
-//        mCode3 = findViewById(R.id.inputCode3);
-//        mCode4 = findViewById(R.id.inputCode4);
-//        mCode5 = findViewById(R.id.inputCode5);
-//        mCode6 = findViewById(R.id.inputCode6);
-//
-//        textMobile = findViewById(R.id.textMobile);
-//        mVerify = findViewById(R.id.veryOTP);
-//        mBar = findViewById(R.id.mbar);
-//        session =new SessionManager(getApplicationContext());
-//        if(session.isLoggedIn()){
-//            Intent intent = new Intent(activity_otp.this, MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//        session =new SessionManager(getApplicationContext());
-
-    //    }
     private void setListener(){
         binding.veryOTP.setOnClickListener(v ->{
             if (binding.inputCode1.getText().toString().trim().isEmpty()
@@ -134,6 +115,22 @@ public class Otp extends AppCompatActivity {
                             })
                             .build();
             PhoneAuthProvider.verifyPhoneNumber(options);
+
+            new CountDownTimer(30000, 1000) {
+
+                public void onTick(long millisUntilFinished) {
+                    binding.resendOtp.setVisibility(View.GONE);
+                    binding.time.setVisibility(View.VISIBLE);
+                    binding.time.setText("00 :" + millisUntilFinished / 1000);
+                }
+
+                public void onFinish() {
+                    binding.time.setVisibility(View.GONE);
+                    binding.resendOtp.setVisibility(View.VISIBLE);
+
+                }
+            }.start();
+
         });
     }
 

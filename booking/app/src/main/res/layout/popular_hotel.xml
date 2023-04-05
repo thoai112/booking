@@ -1,0 +1,87 @@
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_140pxh"
+    android:layout_height="@dimen/_170pxh"
+    android:layout_marginLeft="@dimen/_8pxh"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#EBFDFB"
+    app:cardCornerRadius="@dimen/_15pxh"
+    app:strokeWidth="1dp"
+    app:strokeColor="#009688">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_115pxh"
+            android:src="@mipmap/haven"
+            android:scaleType="fitXY"/>
+
+        <RelativeLayout
+            android:layout_below="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phu Yen"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/_20pxh" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phu Yen"
+                android:textSize="8sp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:layout_marginStart="@dimen/_20pxh"
+                android:layout_below="@+id/name"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/address"
+                android:layout_marginTop="@dimen/_5pxh"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$200"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/teal_700"
+                    android:layout_marginStart="5dp"
+                    android:layout_below="@+id/name"/>
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rating"
+                    android:numStars="5"
+                    android:rating="5.0"
+                    android:layout_marginStart="20dp"
+                    android:progressTint="@color/amber_500"
+                    style="@style/Widget.AppCompat.RatingBar.Small"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

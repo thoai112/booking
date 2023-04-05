@@ -152,6 +152,18 @@
                 android:singleLine="true"
                 android:text="@string/sendcode"
                 android:textAllCaps="false" />
+
+            <TextView
+                android:id="@id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                android:visibility="gone">
+
+            </TextView>
         </LinearLayout>
 
 
@@ -177,7 +189,7 @@
             android:ellipsize="end"
             android:hint="@string/pass"
             android:id="@+id/pass"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10pxv"
             android:layout_width="match_parent"
@@ -194,7 +206,7 @@
             android:ellipsize="end"
             android:hint="@string/repass"
             android:id="@+id/repass"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10pxv"
             android:layout_width="match_parent"
@@ -236,7 +248,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:ellipsize="end" android:gravity="center"
-            android:id="@+id/btnSendEmail"
+            android:id="@+id/btnSignup"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16pxv"
             android:layout_width="match_parent"

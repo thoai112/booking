@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:381640226343:android:3f7e40e0f0e7acbf4b0002",
+        "mobilesdk_app_id": "1:381640226343:android:b6610714f2916beb4b0002",
         "android_client_info": {
           "package_name": "com.kurata.booking"
         }
       },
       "oauth_client": [
         {
-          "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+          "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+              "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -43,7 +43,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+          "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -56,7 +56,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+              "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

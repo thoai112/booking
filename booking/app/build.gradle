@@ -39,7 +39,39 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
     implementation 'com.google.firebase:firebase-auth:21.2.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.5'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Circular ImageView
+    def circularImage_version = "3.1.0"
+    implementation "de.hdodenhof:circleimageview:$circularImage_version"
+
+    //Glide
+    def glide_version = "4.10.0"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    //RxJava & RxAndroid
+    def rx_android = "2.1.1"
+    def rx_java = "2.2.16"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+
+    //RxPermission
+    def rx_permission = "0.7.0"
+    implementation "com.vanniktech:rxpermission:0.7.0"
+
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
+    //
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    //recy
+    implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
+
 }

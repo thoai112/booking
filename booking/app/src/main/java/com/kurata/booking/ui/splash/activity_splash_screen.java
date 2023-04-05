@@ -36,15 +36,18 @@ public class activity_splash_screen extends AppCompatActivity implements Network
         startNetworkBroadcastReceiver(this);
         mAuth =FirebaseAuth.getInstance();
 
-        if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(activity_splash_screen.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-            Intent intent = new Intent(activity_splash_screen.this, Activity_login.class);
-            startActivity(intent);
-            finish();
-        }
+//        if(mAuth.getCurrentUser() != null){
+//            Intent intent = new Intent(activity_splash_screen.this, MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }else{
+//            Intent intent = new Intent(activity_splash_screen.this, Activity_login.class);
+//            startActivity(intent);
+//            finish();
+//        }
+        Intent intent = new Intent(activity_splash_screen.this, MainActivity.class);
+        startActivity(intent);
+        finish();
 
 
     }

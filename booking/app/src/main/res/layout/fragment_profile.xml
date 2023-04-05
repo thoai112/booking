@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.profile.Profile">
+
+    <LinearLayout
+        android:id="@id/pro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_180pxh"
+            app:cardBackgroundColor="#EBFDFB"
+            app:cardCornerRadius="@dimen/_30pxh"
+            app:strokeWidth="1dp"
+            app:strokeColor="#009688"
+            android:layout_marginTop="@dimen/_60pxh"
+            android:layout_marginLeft="@dimen/_30pxh"
+            android:layout_marginRight="@dimen/_30pxh"
+            android:layout_marginBottom="@dimen/_10pxh"
+            android:elevation="30dp"
+            tools:ignore="MissingConstraints" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/Logox"
+                    android:layout_marginLeft="@dimen/_25pxh"
+                    android:layout_marginTop="@dimen/_30pxh"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:background="@drawable/circle_avatar"
+                    android:gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/Logo"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:src="@mipmap/haven" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/fullName"
+                    android:layout_marginLeft="@dimen/_25pxh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Xuan Thoai"
+                    android:textSize="21sp"
+                    android:fontFamily="@font/poppins"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/Logox" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_marginLeft="@dimen/_25pxh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="thoailata1000@gmail.com"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:layout_below="@+id/fullName" />
+
+                <ImageView
+                    android:id="@+id/setting"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="@dimen/_300pxh"
+                    android:layout_marginTop="@dimen/_35pxh"
+                    android:src="@drawable/img_settings" />
+
+                <TextView
+                    android:id="@+id/member"
+                    android:layout_marginStart="@dimen/_230pxh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GOLD MEMBER"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/yellow_800"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_above="@+id/email" />
+
+                <TextView
+                    android:id="@+id/point"
+                    android:layout_marginStart="@dimen/_260pxh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1200 point"
+                    android:textSize="15sp"
+                    android:layout_below="@+id/member" />
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <View android:background="@color/gray_200"
+        android:id="@+id/line"
+        android:layout_height="@dimen/_1pxv"
+        android:layout_marginTop="@dimen/_20pxv"
+        android:layout_marginLeft="@dimen/_30pxv"
+        android:layout_marginRight="@dimen/_30pxv"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/pro"/>
+
+    <LinearLayout
+        android:id="@+id/pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10pxh"
+        android:layout_marginStart="@dimen/_30pxh"
+        android:layout_marginEnd="@dimen/_30pxh"
+        app:layout_constraintTop_toBottomOf="@+id/line">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAYMENT METHOD"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:fontFamily="@font/poppins"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginStart="@dimen/_90pxh"
+            android:textStyle="italic"
+            android:textSize="18sp"
+            android:textColor="#009688"
+            android:fontFamily="@font/poppins"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bank1"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cardBackgroundColor="#EBFDFB"
+        app:strokeWidth="2dp"
+        app:strokeColor="#009688"
+        app:cardCornerRadius="@dimen/_25pxh"
+        app:layout_constraintTop_toBottomOf="@+id/pay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_40pxh"
+            android:layout_marginEnd="@dimen/_40pxh">
+            <ImageView
+                android:id="@+id/icon_bank"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/card_bg"/>
+            <TextView
+                android:id="@+id/name_bank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_40pxh"
+                android:text="Vietinbank"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bank2"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cardBackgroundColor="#EBFDFB"
+        app:strokeWidth="2dp"
+        app:strokeColor="#009688"
+        app:cardCornerRadius="@dimen/_25pxh"
+        app:layout_constraintTop_toBottomOf="@+id/bank1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_40pxh"
+            android:layout_marginEnd="@dimen/_40pxh">
+            <ImageView
+                android:id="@+id/icon_bank1"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/card_bg"/>
+            <TextView
+                android:id="@+id/name_bank1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_40pxh"
+                android:text="Nam A Bank"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <View android:background="@color/gray_200"
+        android:id="@id/line2"
+        android:layout_height="@dimen/_1pxv"
+        android:layout_marginTop="@dimen/_20pxv"
+        android:layout_marginLeft="@dimen/_30pxv"
+        android:layout_marginRight="@dimen/_30pxv"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/bank2"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_20pxh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/line2"
+        android:layout_marginStart="@dimen/_30pxh"
+        android:layout_marginEnd="@dimen/_30pxh"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/policy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/line2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Private policy"
+                android:textSize="23sp"
+                android:fontFamily="@font/poppins"/>
+
+            <ImageView
+                android:id="@+id/info"
+                android:layout_gravity="center|end"
+                android:layout_marginStart="@dimen/_180pxh"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/img_arrowright_teal_400"
+                />
+
+        </LinearLayout>
+
+        <View android:background="@color/gray_200"
+            android:layout_marginTop="@dimen/_20pxh"
+            android:layout_height="@dimen/_1pxv"
+            android:layout_marginBottom="@dimen/_20pxh"
+            android:layout_width="match_parent" />
+
+
+        <LinearLayout
+            android:id="@+id/policy1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/line2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Private policy"
+                android:textSize="23sp"
+                android:fontFamily="@font/poppins"/>
+
+            <ImageView
+                android:id="@+id/info1"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_180pxh"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/img_arrowright_teal_400"
+                />
+
+        </LinearLayout>
+
+        <View android:background="@color/gray_200"
+            android:layout_marginTop="@dimen/_20pxh"
+            android:layout_height="@dimen/_1pxv"
+            android:layout_marginBottom="@dimen/_20pxh"
+            android:layout_width="match_parent" />
+        <LinearLayout
+            android:id="@+id/policy2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/line2">
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log out"
+                android:textSize="23sp"
+                android:fontFamily="@font/poppins"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

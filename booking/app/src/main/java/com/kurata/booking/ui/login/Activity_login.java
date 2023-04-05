@@ -1,39 +1,36 @@
 package com.kurata.booking.ui.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import com.kurata.booking.R;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
+import com.kurata.booking.databinding.ActivityLoginBinding;
+import com.kurata.booking.databinding.PopupAccountBinding;
 import com.kurata.booking.ui.forgetpassword.Forgot_password;
 import com.kurata.booking.ui.main.MainActivity;
-
-
-import com.kurata.booking.databinding.ActivityLoginBinding;
 import com.kurata.booking.ui.phonelogin.Phone_login;
 import com.kurata.booking.ui.signup.Sign_up;
+import com.kurata.booking.utils.Preference;
 
 public class Activity_login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     private ActivityLoginBinding binding;
+
+
+    public Activity_login() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +76,13 @@ public class Activity_login extends AppCompatActivity {
                 startActivity(new Intent(Activity_login.this, Sign_up.class));
             }
         });
+
+        binding.txtBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Activity_login.this, MainActivity.class));
+            }
+        });
     }
 
 
@@ -108,4 +112,7 @@ public class Activity_login extends AppCompatActivity {
             });
         }
     }
+
+
+
 }
