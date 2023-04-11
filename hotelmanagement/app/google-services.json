@@ -7,6 +7,72 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:381640226343:android:b6610714f2916beb4b0002",
+        "android_client_info": {
+          "package_name": "com.kurata.booking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN2wynrM6bEkeqO3bJdY4BZggS8ZLRySE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381640226343:android:0b01fe5f7cea88eb4b0002",
+        "android_client_info": {
+          "package_name": "com.kurata.bookinghotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381640226343-embguf53sdstvkb7nl4ijbff7n96ljth.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kurata.bookinghotel",
+            "certificate_hash": "fdc3ff6cb9ecbb4002539bfdb53662de01ef79e1"
+          }
+        },
+        {
+          "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN2wynrM6bEkeqO3bJdY4BZggS8ZLRySE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:381640226343:android:36428a9f0a2725254b0002",
         "android_client_info": {
           "package_name": "com.kurata.hotelmanagement"
@@ -14,20 +80,20 @@
       },
       "oauth_client": [
         {
-          "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+          "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0Dae5H1ar76eIGRqA5ffskGbyD17F0Ps"
+          "current_key": "AIzaSyCN2wynrM6bEkeqO3bJdY4BZggS8ZLRySE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "381640226343-ltj87cd6lq31ovummk4nk3l7qj81f7is.apps.googleusercontent.com",
+              "client_id": "381640226343-83el0kd0sep7bjo5q7bksjmaqete8vji.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

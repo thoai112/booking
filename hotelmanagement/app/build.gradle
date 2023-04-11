@@ -48,8 +48,9 @@ dependencies {
     implementation 'androidx.databinding:databinding-runtime:7.4.2'
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
     implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
-
+//    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
+    implementation 'com.google.firebase:firebase-auth:21.2.0'
 
     //RxJava & RxAndroid
     def rx_android = "2.1.1"
@@ -110,6 +111,7 @@ dependencies {
 
     //map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
 
 

@@ -5,8 +5,11 @@ import static android.content.ContentValues.TAG;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,15 +27,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kurata.hotelmanagement.Add_location;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.ViewPagerAdapter;
 import com.kurata.hotelmanagement.data.model.Hotel;
 import com.kurata.hotelmanagement.databinding.ActivityAddHotelBinding;
 import com.kurata.hotelmanagement.databinding.PopupEditProfileBinding;
+import com.kurata.hotelmanagement.utils.Preference;
 import com.vanniktech.rxpermission.RealRxPermission;
 
 import java.util.ArrayList;
@@ -49,11 +55,13 @@ public class AddHotel extends AppCompatActivity {
     FirebaseStorage mStorage;
     ProgressDialog progressDialog;
     PopupEditProfileBinding Ebinding;
-
+    private Preference preferenceManager;
+    GeoPoint geoPoint;
     //spinner
     ArrayAdapter<String> adapterItems;
     private String[] items =  {"Activate","Disable"};
     String item;
+
 
 
     @Override
@@ -65,6 +73,7 @@ public class AddHotel extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
+        preferenceManager = new Preference(getApplicationContext());
         //Init
         ChooseImageList = new ArrayList<>();
         UrlsList = new ArrayList<>();
@@ -98,6 +107,17 @@ public class AddHotel extends AppCompatActivity {
                     CheckPermission();
                 }
             });
+
+            binding.addlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplication(), Add_location.class);
+                startActivityForResult(intent , 1);
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+
+            }
+        });
+
         }
         else{
             Bundle args = getIntent().getBundleExtra("BUNDLE");
@@ -109,6 +129,9 @@ public class AddHotel extends AppCompatActivity {
             binding.viewPager.setVisibility(View.VISIBLE);
             binding.spinner.setText(object.getStatus());
             ImagesUrl = object.getImage();
+            //extras.getString("ht_id")
+            //Log.d("GEOOOOOOOO", String.valueOf(extras.getDouble("lati",0.0)));
+            //Toast.makeText(this, "GEOO"+ object.getLocation(), Toast.LENGTH_SHORT).show();
             ViewPagerAdapter adapter = new ViewPagerAdapter(this, ImagesUrl);
             binding.viewPager.setAdapter(adapter);
 
@@ -129,7 +152,33 @@ public class AddHotel extends AppCompatActivity {
                     DeleteHotel(firestore,extras.getString("ht_id"),object.getId());
                 }
             });
+
+            binding.addlocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplication(), Add_location.class);
+                    Location x = new Location(LocationManager.GPS_PROVIDER);
+                    x.setLatitude(extras.getDouble("lati",0.0));
+                    x.setLongitude(extras.getDouble("longi",0.0));
+                    intent.putExtra("location", (Parcelable) x);
+                    intent.putExtra("address",object.getAddress());
+                    startActivityForResult(intent , 1);
+                    overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+
+                }
+            });
         }
+
+//        binding.addlocation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplication(), Add_location.class);
+//                //startActivity(intent);
+//                startActivityForResult(intent , 1);
+//                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+//
+//            }
+//        });
 
         adapterItems = new ArrayAdapter<String>(this, R.layout.drop_down_item, items);
         binding.spinner.setAdapter(adapterItems);
@@ -162,10 +211,13 @@ public class AddHotel extends AppCompatActivity {
             }
         });
 
+
+
+
+
     }
     //Upload image --> firestore
     private void UploadIMages(String uid) {
-
         // we need list that images urls
         for (int i = 0; i < ChooseImageList.size(); i++) {
             Uri IndividualImage = ChooseImageList.get(i);
@@ -202,7 +254,7 @@ public class AddHotel extends AppCompatActivity {
         String About= binding.txtabout.getText().toString();
         if (!TextUtils.isEmpty(Name) && !TextUtils.isEmpty(Address) && !TextUtils.isEmpty(About) && !TextUtils.isEmpty(item) && ImageUri != null) {
             // now we need a model class
-            Hotel model = new Hotel("", Name, Address, About , item, urlsList);
+            Hotel model = new Hotel("", Name, Address, About , item ,geoPoint,urlsList);
             firestore.collection("rating").document(uid).collection("hotels").add(model).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
@@ -259,8 +311,17 @@ public class AddHotel extends AppCompatActivity {
             }
             setAdapter();
 
+
+        }else
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                //Hotel model = (Hotel) data.getSerializableExtra("location");
+                binding.txtaddress.setText(data.getStringExtra("address"));
+                geoPoint = new GeoPoint(data.getDoubleExtra("latitude",0.0),data.getDoubleExtra("longitude",0.00));
+            }
         }
     }
+
     //viewpager
     private void setAdapter() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, ImagesUrl);
@@ -272,6 +333,11 @@ public class AddHotel extends AppCompatActivity {
         String Address= binding.txtaddress.getText().toString();
         String About= binding.txtabout.getText().toString();
 
+    }
+    //get geopoint from location
+    private GeoPoint geoPointFromLocation(Location location) {
+        GeoPoint geo = new GeoPoint(location.getLatitude(),location.getLongitude());
+        return geo ;
     }
 
     //todo  - delete

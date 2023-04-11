@@ -69,6 +69,7 @@ public class HotelsRecyclerAdapter extends RecyclerView.Adapter<HotelsRecyclerAd
                 model.setImage(hotel.getImage());
                 model.setAbout(hotel.getAbout());
                 model.setStatus(hotel.getStatus());
+                model.setLocation(hotel.getLocation());
                 hotelListener.onUserClicked(model);
             });
         }

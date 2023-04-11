@@ -22,4 +22,10 @@ public class Constants {
 
         public static final String H_IMG = "img";
 
+        //Map
+        public static final String LATITUDE = "Latitude";
+        public static final String LONGITUDE = "Longitude";
+
+
+
 }

@@ -1,5 +1,9 @@
 package com.kurata.hotelmanagement.data.model;
 
+import android.os.Parcel;
+
+import com.google.firebase.firestore.GeoPoint;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -9,20 +13,34 @@ public class Hotel implements Serializable {
     private String address;
     private String about;
     private String status;
+    private GeoPoint location;
     private ArrayList<String> image;
 
     public Hotel() {
 
     }
 
-    public Hotel(String id, String name, String address, String about, String status, ArrayList<String> image) {
+
+    public Hotel(String id, String name, String address, String about, String status, GeoPoint location, ArrayList<String> image) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.about = about;
         this.status = status;
+        this.location = location;
         this.image = image;
     }
+
+    protected Hotel(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        address = in.readString();
+        about = in.readString();
+        status = in.readString();
+        image = in.createStringArrayList();
+    }
+
+
 
     public String getId() {
         return id;
@@ -72,8 +90,17 @@ public class Hotel implements Serializable {
         this.image = image;
     }
 
+    public GeoPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
+    }
+
     @Override
     public String toString() {
         return name;
     }
+
 }

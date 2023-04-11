@@ -135,10 +135,15 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
         model.setAbout(hotel.getAbout());
         model.setStatus(hotel.getStatus());
         model.setImage(hotel.getImage());
+//      model.setLocation(hotel.getLocation());
 
-        bundle.putSerializable("model",model);
+        bundle.putSerializable("model", model);
         intent.putExtra("ht_id", Hoteltype_id);
         intent.putExtra("BUNDLE",bundle);
+        intent.putExtra("lati",hotel.getLocation().getLatitude());
+        intent.putExtra("longi",hotel.getLocation().getLongitude());
+
+
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
