@@ -34,6 +34,7 @@ import com.kurata.hotelmanagement.databinding.FragmentRoomsBinding;
 import com.kurata.hotelmanagement.ui.hotel.HotelViewModel;
 import com.kurata.hotelmanagement.ui.hoteltype.HoteltypesViewModel;
 import com.kurata.hotelmanagement.ui.roomtype.RoomTypeViewModel;
+import com.kurata.hotelmanagement.utils.Preference;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
     private BottomSheetDialogBinding Binding;
     private FragmentRoomsBinding Rbinding;
     ArrayList<Room> room = new ArrayList<Room>();
+    ArrayList<Room> roomx = new ArrayList<Room>();
 
     //spinner adapter
     ArrayList<Hoteltype> list = new ArrayList<Hoteltype>();
@@ -59,12 +61,13 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
     private FirebaseFirestore firestore;
 
     //Value spinner filter
-//    private String shoteltype_start = "nDH3CUcDtrgdCImyX3Fg";
-//    private String shotel_start = "Kl0WnOCpMoLni0c2DDAl";
-//    private String sroomtype_start = "5CBOkLO7U3vpO1LD6SMQ";
-    private String shoteltype;
-    private String shotel;
-    private String sroomtype;
+
+    private String shoteltype = null;
+    private String shotel = null ;
+    private String sroomtype = null;
+
+    //save data
+    private Preference preferenceManager;
 
     //RecyclerAdapter
     @Inject
@@ -82,6 +85,8 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
 
         firestore = FirebaseFirestore.getInstance();
         //getData(firestore,"rating", adapter);
+        //save data
+        preferenceManager = new Preference(getActivity());
 
         mViewModel =  new ViewModelProvider(requireActivity()).get(RoomsViewModel.class);
         mViewModel.init();
@@ -91,11 +96,13 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Rbinding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         Rbinding.RecyclerView.setAdapter(recyclerAdapter);
 
+
         mViewModel.getAllRoom().observe(getViewLifecycleOwner(), roomModels -> {
             room.clear();
             room.addAll(roomModels);
             recyclerAdapter.notifyDataSetChanged();
         });
+
 
         Rbinding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -113,12 +120,6 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
 
         Rbinding.back.setOnClickListener(v-> getActivity().onBackPressed());
 
-        Rbinding.filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
 
         Rbinding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +128,13 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
                 intent.putExtra("id_cu", "kkt");
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+            }
+        });
+
+        Rbinding.filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
             }
         });
 
@@ -186,13 +194,10 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Binding.filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                filter(shoteltype,shotel,sroomtype);
                 recycleradapter();
                 dialog.dismiss();
             }
         });
-
-
 
         dialog.show();
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -210,12 +215,19 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         Rbinding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         Rbinding.RecyclerView.setAdapter(recyclerAdapter);
 
-        mViewModel.getAllRoomData(shoteltype,shotel,sroomtype).observe(getViewLifecycleOwner(), roomModels -> {
-            room.clear();
-            room.addAll(roomModels);
-            recyclerAdapter.notifyDataSetChanged();
-        });
-
+        if (shoteltype == null && shotel == null && sroomtype == null){
+            mViewModel.getAllRoom().observe(getViewLifecycleOwner(), roomModels -> {
+                room.clear();
+                room.addAll(roomModels);
+                recyclerAdapter.notifyDataSetChanged();
+            });
+        }else{
+            mViewModel.getAllRoomData(shoteltype,shotel,sroomtype).observe(getViewLifecycleOwner(), roomModels -> {
+                room.clear();
+                room.addAll(roomModels);
+                recyclerAdapter.notifyDataSetChanged();
+            });
+        }
     }
 
 

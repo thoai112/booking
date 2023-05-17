@@ -119,6 +119,9 @@ dependencies {
     //api
    // implementation("com.google.api-client:google-api-client:2.2.0")
 
+    //dotsindicator
+    implementation("com.tbuonomo:dotsindicator:4.3")
+
 
 
 

@@ -291,6 +291,8 @@
     <string name="title_hotels">Hotels</string>
     <string name="title_pops">Popular</string>
 
+    <!--    TODO: PROMOTIONS-->
+    <string name="promotions">Promotions</string>
 
     <!--    TODO: MAP API KEY -->
     <string name="map_api_key">AIzaSyCA84z0ztAikg137bIgkve5asZPt14Htnc</string>

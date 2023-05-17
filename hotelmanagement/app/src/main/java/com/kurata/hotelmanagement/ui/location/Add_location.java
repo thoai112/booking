@@ -1,4 +1,4 @@
-package com.kurata.hotelmanagement;
+package com.kurata.hotelmanagement.ui.location;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.databinding.ActivityAddLocationBinding;
 import com.kurata.hotelmanagement.utils.Constants;
 import com.kurata.hotelmanagement.utils.Preference;

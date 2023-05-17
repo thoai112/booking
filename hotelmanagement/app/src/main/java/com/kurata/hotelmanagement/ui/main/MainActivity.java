@@ -16,6 +16,7 @@ import com.kurata.hotelmanagement.databinding.ActivityMainBinding;
 import com.kurata.hotelmanagement.ui.home.Home;
 import com.kurata.hotelmanagement.ui.manage.manage;
 import com.kurata.hotelmanagement.ui.profile.Profile;
+import com.kurata.hotelmanagement.ui.promotion.promotions;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Profile fragmentProfile = new Profile();
     manage fragmentManage = new manage();
     Home fragmentHome = new Home();
+    promotions fragmentPromotion = new promotions();
 
     private ActivityMainBinding binding;
 
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_manage:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragmentManage).commit();
+                        break;
+                    case R.id.nav_promotion:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragmentPromotion).commit();
                         break;
                     case R.id.nav_profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragmentProfile).commit();

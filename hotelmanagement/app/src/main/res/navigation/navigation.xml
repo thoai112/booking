@@ -18,6 +18,12 @@
     tools:layout="@layout/fragment_manage" />
 
 <fragment
+    android:id="@+id/nav_promotion"
+    android:name="com.kurata.hotelmanagement.ui.promotion.promotions"
+    android:label="Voucher"
+    tools:layout="@layout/fragment_promotions" />
+
+<fragment
     android:id="@+id/nav_profile"
     android:name="com.kurata.hotelmanagement.ui.profile.Profile"
     android:label="Thong tin của tôi"

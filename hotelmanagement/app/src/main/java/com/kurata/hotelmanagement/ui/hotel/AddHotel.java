@@ -35,7 +35,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.kurata.hotelmanagement.Add_location;
+import com.kurata.hotelmanagement.ui.location.Add_location;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.ViewPagerAdapter;
 import com.kurata.hotelmanagement.data.model.City;

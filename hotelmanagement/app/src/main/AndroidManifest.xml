@@ -18,8 +18,11 @@
         android:theme="@style/Theme.Hotelmanagement"
         tools:targetApi="31">
         <activity
-            android:name=".Add_location"
-            android:exported="true"/>
+            android:name=".ui.promotion.activity_enter_promotion"
+            android:exported="false" />
+        <activity
+            android:name=".ui.location.Add_location"
+            android:exported="true" />
         <activity
             android:name=".ui.room.AddRoom"
             android:exported="true" />
@@ -49,7 +52,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data

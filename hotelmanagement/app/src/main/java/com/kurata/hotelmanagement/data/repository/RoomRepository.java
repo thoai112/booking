@@ -70,7 +70,7 @@ public class RoomRepository {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         //String hoteltype_id, String hotel_id, String roomtype_id
         //whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id)
-        firestore.collectionGroup("room").whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id).addSnapshotListener((value, error) -> {
+        firestore.collection("room").whereEqualTo("hoteltype_id", hoteltype_id).whereEqualTo("hotel_id", hotel_id).whereEqualTo("roomtype_id", roomtype_id).addSnapshotListener((value, error) -> {
             if (error != null) return;
             if (value != null) {
                 List<Room> tempList = new ArrayList<>();
