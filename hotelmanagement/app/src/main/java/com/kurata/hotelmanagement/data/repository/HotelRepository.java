@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.kurata.hotelmanagement.data.model.City;
 import com.kurata.hotelmanagement.data.model.Hotel;
 import com.kurata.hotelmanagement.data.model.Hoteltype;
 import com.kurata.hotelmanagement.utils.Constants;
@@ -69,10 +70,29 @@ public class HotelRepository {
 
 
         //TODO - GETALL HOTELS
-        public MutableLiveData<List<Hotel>> getAllHotels(String uid) {
+        public MutableLiveData<List<Hotel>> getAllHotelsID(String uid) {
                 MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
                 FirebaseFirestore firestore = FirebaseFirestore.getInstance();
                 firestore.collection("rating").document(uid).collection("hotels").addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<Hotel> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        Hotel model = document.toObject(Hotel.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allHotel.postValue(tempList);
+                        }
+                });
+                return allHotel;
+        }
+
+        //get hotel with customer
+        public MutableLiveData<List<Hotel>> getHotelsUID(String uid) {
+                MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collectionGroup("hotels").whereEqualTo("userID", uid).addSnapshotListener((value, error) -> {
                         if (error != null) return;
                         if (value != null) {
                                 List<Hotel> tempList = new ArrayList<>();
@@ -181,7 +201,7 @@ public class HotelRepository {
         public MutableLiveData<List<Hotel>> getHotelActivate(String uid) {
                 MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
                 FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-                firestore.collection("rating").document(uid).collection("hotels").whereEqualTo("status", "Activate").addSnapshotListener((value, error) -> {
+                firestore.collection("rating").document(uid).collection("hotels").whereEqualTo("status", true).addSnapshotListener((value, error) -> {
                         if (error != null) return;
                         if (value != null) {
                                 List<Hotel> tempList = new ArrayList<>();
@@ -196,6 +216,42 @@ public class HotelRepository {
                 return allHotel;
         }
 
+        public MutableLiveData<List<Hotel>> getHotelActivateCus(String userID) {
+                MutableLiveData<List<Hotel>> allHotel = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collectionGroup("hotels").whereEqualTo("status", true).whereEqualTo("userID",userID).addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<Hotel> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        Hotel model = document.toObject(Hotel.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allHotel.postValue(tempList);
+                        }
+                });
+                return allHotel;
+        }
+
+        //get value citi
+        public MutableLiveData<List<City>> getCity() {
+                MutableLiveData<List<City>> allCity = new MutableLiveData<>();
+                FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                firestore.collection("Cities").addSnapshotListener((value, error) -> {
+                        if (error != null) return;
+                        if (value != null) {
+                                List<City> tempList = new ArrayList<>();
+                                for (DocumentSnapshot document : value.getDocuments()) {
+                                        City model = document.toObject(City.class);
+                                        assert model != null;
+                                        tempList.add(model);
+                                }
+                                allCity.postValue(tempList);
+                        }
+                });
+                return allCity;
+        }
 
 
 }

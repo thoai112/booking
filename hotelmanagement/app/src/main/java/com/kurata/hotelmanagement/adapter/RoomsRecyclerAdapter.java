@@ -63,7 +63,7 @@ public class RoomsRecyclerAdapter extends RecyclerView.Adapter<RoomsRecyclerAdap
             binding.mTitle.setText(room.getName());
             ArrayList<String> arrayList = room.getImage();
             Glide.with(binding.staggeredImages).load(arrayList.get(0).toString()).into(binding.staggeredImages);
-            if(room.getStatus().equals("Activate")){
+            if(room.getStatus()){
                 Glide.with(binding.status).load(R.drawable.activate).into(binding.status);
             }
             else{
@@ -80,6 +80,8 @@ public class RoomsRecyclerAdapter extends RecyclerView.Adapter<RoomsRecyclerAdap
                 model.setHotel_id(room.getHotel_id());
                 model.setRoomtype_id(room.getRoomtype_id());
                 model.setPrice(room.getPrice());
+                model.setSum(room.getSum());
+                model.setRemai(room.getRemai());
                 roomListener.onUserClicked(model);
             });
         }

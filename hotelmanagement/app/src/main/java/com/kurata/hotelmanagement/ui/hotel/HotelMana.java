@@ -14,10 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.kurata.hotelmanagement.R;
 import com.kurata.hotelmanagement.adapter.HotelsRecyclerAdapter;
 import com.kurata.hotelmanagement.data.model.Hotel;
 import com.kurata.hotelmanagement.databinding.FragmentHotelBinding;
+import com.kurata.hotelmanagement.utils.Constants;
+import com.kurata.hotelmanagement.utils.Preference;
 
 import java.util.ArrayList;
 
@@ -30,14 +33,15 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
     private HotelViewModel mViewModel;
     private FragmentHotelBinding binding;
     private String Hoteltype_id;
+    private Preference preferenceManager;
 
     @Inject
     HotelsRecyclerAdapter recyclerAdapter;
 
 
     public HotelMana() {
-
     }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -46,20 +50,45 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
         binding = FragmentHotelBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        preferenceManager = new Preference(getContext());
+
         mViewModel =  new ViewModelProvider(requireActivity()).get(HotelViewModel.class);
         mViewModel.init();
-
-        Log.d("UUID", bundle.getString("id"));
-        Hoteltype_id = bundle.getString("id");
 
         recyclerAdapter = new HotelsRecyclerAdapter(list,this);
         binding.gridView.setHasFixedSize(true);
         binding.gridView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.gridView.setAdapter(recyclerAdapter);
 
-        mViewModel.getAllHotelData(bundle.getString("id")).observe(getViewLifecycleOwner(), hotels -> {
+
+        if(preferenceManager.getString(Constants.P_ROLE).equals("Admin")){
+
+            Log.d("UUID", bundle.getString("id"));
+            Hoteltype_id = bundle.getString("id");
+
+            mViewModel.getAllHotelData(bundle.getString("id")).observe(getViewLifecycleOwner(), hotels -> {
+                list.clear();
+                list.addAll(hotels);
+                recyclerAdapter.notifyDataSetChanged();
+            });
+
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), AddHotel.class);
+                    intent.putExtra("id_cu", bundle.getString("id"));
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+
+                }
+            });
+        }
+        else{
+            binding.fab.setVisibility(View.GONE);
+        }
+        mViewModel.getAllHotelUID(FirebaseAuth.getInstance().getUid()).observe(getViewLifecycleOwner(), hotel -> {
             list.clear();
-            list.addAll(hotels);
+            list.addAll(hotel);
             recyclerAdapter.notifyDataSetChanged();
         });
 
@@ -77,17 +106,7 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
 
         });
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getContext(), AddHotel.class);
-                intent.putExtra("id_cu", bundle.getString("id"));
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-
-            }
-        });
+        binding.back.setOnClickListener(v->getActivity().onBackPressed());
 
         return view;
     }
@@ -135,15 +154,18 @@ public class HotelMana extends Fragment implements HotelsRecyclerAdapter.HotelLi
         model.setAbout(hotel.getAbout());
         model.setStatus(hotel.getStatus());
         model.setImage(hotel.getImage());
-//      model.setLocation(hotel.getLocation());
+        model.setUserID(hotel.getUserID());
+        model.setCitiID(hotel.getCitiID());
+        model.setHoteltypeID(hotel.getHoteltypeID());
 
         bundle.putSerializable("model", model);
         intent.putExtra("ht_id", Hoteltype_id);
         intent.putExtra("BUNDLE",bundle);
-        intent.putExtra("lati",hotel.getLocation().getLatitude());
-        intent.putExtra("longi",hotel.getLocation().getLongitude());
-
-
+//        intent.putExtra("lati",hotel.getLocation().getLatitude());
+//        intent.putExtra("longi",hotel.getLocation().getLongitude());
+        Log.d("Latitude", String.valueOf(hotel.getLocation().getLatitude()));
+        preferenceManager.putString(Constants.LATITUDE, String.valueOf(hotel.getLocation().getLatitude()));
+        preferenceManager.putString(Constants.LONGITUDE, String.valueOf(hotel.getLocation().getLongitude()));
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }

@@ -74,6 +74,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/mHoteltype"
                     android:layout_width="match_parent"
+                    android:dropDownHeight="200dp"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +99,7 @@
                     android:id="@+id/mHotel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:dropDownHeight="200dp"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +122,8 @@
                 <AutoCompleteTextView
                     android:id="@+id/mRoomtype"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:dropDownHeight="200dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -182,14 +185,6 @@
                 android:background="@drawable/card_bg"
                 app:layout_constraintTop_toBottomOf="@+id/outlined_Price">
 
-                    <ImageView
-                    android:id="@+id/UploadImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/uploading"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
@@ -197,6 +192,14 @@
                     android:scaleType="fitXY"
                     app:cardCornerRadius="20dp"
                     tools:ignore="MissingConstraints" />
+
+                <ImageView
+                    android:id="@+id/UploadImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/uploading"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -249,6 +252,63 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/outlined_rema"
+                app:layout_constraintTop_toBottomOf="@+id/outlined_status">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlined_sum"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Sum"
+                    android:textColorHint="@color/purple"
+                    android:theme="@style/EditTextThemeOverlay"
+                    app:boxStrokeColor="@color/purple"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtsum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColorHighlight="@color/textColorHighlight" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlined_remaining"
+                    android:layout_marginStart="@dimen/_10pxh"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Remaining"
+                    android:textColorHint="@color/purple"
+                    android:theme="@style/EditTextThemeOverlay"
+                    app:boxStrokeColor="@color/purple"
+                    app:errorTextAppearance="@style/ErrorTextAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtremaining"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColorHighlight="@color/textColorHighlight" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSubmit"
                 style="@style/btnSolidRounded_1"
@@ -257,6 +317,7 @@
                 android:layout_marginTop="@dimen/_35pxv"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:layout_marginStart="@dimen/_20pxh"
                 android:paddingStart="@dimen/_30pxh"
                 android:paddingTop="@dimen/_15pxv"
                 android:paddingEnd="@dimen/_30pxh"
@@ -266,7 +327,7 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/outlined_status" />
+                app:layout_constraintTop_toBottomOf="@+id/outlined_rema" />
 
 
             <LinearLayout
@@ -275,7 +336,7 @@
                 android:layout_marginTop="@dimen/_25pxh"
                 android:paddingBottom="10dp"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@+id/outlined_status">
+                app:layout_constraintTop_toBottomOf="@+id/outlined_rema">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnEdit"

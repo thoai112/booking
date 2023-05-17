@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,8 +54,11 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
 
     //spinner
     ArrayAdapter<String> adapterItems;
+    ArrayAdapter<String> adapterRoles;
     private String[] items =  {"Activate","Disable"};
+    private String[] roles =  {"User", "Admin", "Customer"};
     String item;
+    //Boolean temp = false;
 
 
     @Inject
@@ -80,17 +84,44 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
         Log.d("uidtest", myId);
 
         usersViewModel =  new ViewModelProvider(requireActivity()).get(UsersViewModel.class);
-        usersViewModel.init(myId);
-
         recyclerAdapter = new UsersRecyclerAdapter(list, this);
+        usersViewModel.init();
         binding.RecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.RecyclerView.setAdapter(recyclerAdapter);
 
+        binding.back.setOnClickListener(v-> getActivity().onBackPressed());
 
-        usersViewModel.getAllUsersData().observe(getViewLifecycleOwner(), userModels -> {
+
+        usersViewModel.getAllUsersData(myId,roles[2]).observe(getViewLifecycleOwner(), userModels -> {
             list.clear();
             list.addAll(userModels);
             recyclerAdapter.notifyDataSetChanged();
+        });
+
+
+        binding.xuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.xcustomer.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.teal_700));
+                binding.xuser.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.gray));
+                usersViewModel.getAllUsersData(myId,roles[0]).observe(getViewLifecycleOwner(), userModels -> {
+                    list.clear();
+                    list.addAll(userModels);
+                    recyclerAdapter.notifyDataSetChanged();
+                });
+            }
+        });
+        binding.xcustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.xcustomer.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.gray));
+                binding.xuser.setBackgroundTintList(ContextCompat.getColorStateList(getActivity(), R.color.teal_700));
+                usersViewModel.getAllUsersData(myId,roles[2]).observe(getViewLifecycleOwner(), userModels -> {
+                    list.clear();
+                    list.addAll(userModels);
+                    recyclerAdapter.notifyDataSetChanged();
+                });
+            }
         });
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +130,7 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
                 PopupAddUserProfile(Gravity.TOP);
             }
         });
+
         binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -221,7 +253,7 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
     }
 
 
-    private void PopupUserProfile(int gravity, FirebaseFirestore firestore, String uid, Boolean status) {
+    private void PopupUserProfile(int gravity, FirebaseFirestore firestore, String uid, Boolean status , String role) {
         final Dialog dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         UBinding = PopupUserProfileBinding.inflate(getLayoutInflater());
@@ -246,15 +278,26 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
             UBinding.mStatus.setText(items[1]);
         }
 
+        if(role.equals(roles[0])){
+            UBinding.txtrole.setText(roles[0]);
+        }else if(role.equals(roles[1])){
+            UBinding.txtrole.setText(roles[1]);
+        }else{
+            UBinding.txtrole.setText(roles[2]);
+        }
+
         adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
         UBinding.mStatus.setAdapter(adapterItems);
 
-        UBinding.mStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                item = adapterView.getItemAtPosition(i).toString();
-            }
-        });
+        adapterRoles = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, roles);
+        UBinding.txtrole.setAdapter(adapterRoles);
+
+//        UBinding.mStatus.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                item = adapterView.getItemAtPosition(i).toString();
+//            }
+//        });
 
         UBinding.mUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,12 +308,11 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
                 user.put("address",UBinding.txtaddress.getText().toString());
                 user.put("mobile",UBinding.txtmobile.getText().toString());
                 user.put("role",UBinding.txtrole.getText().toString());
-                if(item == items[0]){
+                if(UBinding.mStatus.getText().toString().equals(items[0])){
                     user.put("status",Boolean.TRUE);
                 }else{
                     user.put("status",Boolean.FALSE);
                 }
-
 
                 DocumentReference reference = firestore.collection("users").document(uid);
 
@@ -308,13 +350,13 @@ public class Users extends Fragment implements UsersRecyclerAdapter.UserListener
 
     @Override
     public void onUserClicked(User user) {
-        PopupUserProfile(Gravity.TOP ,firestore, user.getId(), user.isStatus());
+        PopupUserProfile(Gravity.TOP ,firestore, user.getId(), user.isStatus(), user.getRole());
         Log.d("UID", user.getId());
         UBinding.txtfullName.setText(user.getfullName());
         UBinding.txtEmail.setText(user.getEmail());
         UBinding.txtaddress.setText(user.getAddress());
         UBinding.txtmobile.setText(user.getMobile());
-        UBinding.txtrole.setText(user.getRole());
+        //UBinding.txtrole.setText(user.getRole());
         //UBinding.txtzip.setText(user.getZip());
 
         Glide.with(UBinding.Logo).load(user.getAvatar()).into(UBinding.Logo);

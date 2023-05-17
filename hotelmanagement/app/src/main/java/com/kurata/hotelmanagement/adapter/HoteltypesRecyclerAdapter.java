@@ -83,7 +83,6 @@ public class HoteltypesRecyclerAdapter extends RecyclerView.Adapter<HoteltypesRe
 
         public interface HoteltypeListener {
             void onUserClicked(Hoteltype hoteltype);
-
         }
 
 

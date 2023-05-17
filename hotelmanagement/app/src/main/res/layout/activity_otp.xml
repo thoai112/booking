@@ -158,6 +158,17 @@
             android:textStyle="bold"
             android:layout_marginStart="8dp"
             />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_otp"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:layout_marginStart="8dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/nav_home">
+
+<fragment
+    android:id="@+id/nav_home"
+    android:name="com.kurata.hotelmanagement.ui.home.Home"
+    android:label="Khách sạn của tôi"
+    tools:layout="@layout/fragment_home"/>
+
+<fragment
+    android:id="@+id/nav_manage"
+    android:name="com.kurata.hotelmanagement.ui.manage.manage"
+    android:label="Phòng của tôi"
+    tools:layout="@layout/fragment_manage" />
+
+<fragment
+    android:id="@+id/nav_profile"
+    android:name="com.kurata.hotelmanagement.ui.profile.Profile"
+    android:label="Thong tin của tôi"
+    tools:layout="@layout/fragment_profile" />
 
 </navigation>

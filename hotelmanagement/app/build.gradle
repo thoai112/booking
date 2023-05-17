@@ -51,6 +51,8 @@ dependencies {
 //    implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.5'
     implementation 'com.google.firebase:firebase-auth:21.2.0'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
 
     //RxJava & RxAndroid
     def rx_android = "2.1.1"
@@ -112,6 +114,11 @@ dependencies {
     //map
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation("com.google.android.gms:play-services-places:17.0.0")
+
+    //api
+   // implementation("com.google.api-client:google-api-client:2.2.0")
+
 
 
 

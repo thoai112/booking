@@ -111,6 +111,8 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
 
         });
 
+        Rbinding.back.setOnClickListener(v-> getActivity().onBackPressed());
+
         Rbinding.filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,7 +127,6 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
                 intent.putExtra("id_cu", "kkt");
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-
             }
         });
 
@@ -313,6 +314,8 @@ public class Rooms extends Fragment implements RoomsRecyclerAdapter.RoomListener
         model.setHotel_id(room.getHotel_id());
         model.setRoomtype_id(room.getRoomtype_id());
         model.setPrice(room.getPrice());
+        model.setRemai(room.getRemai());
+        model.setSum(room.getSum());
 
         bundle.putSerializable("model",model);
         intent.putExtra("BUNDLE",bundle);

@@ -71,7 +71,6 @@ public class Profile extends Fragment {
 
     private ProfileViewModel profileViewModel;
     private static final int REQUEST_CODE = 1;
-    FirebaseFirestore db;
     @Inject
     RequestManager requestManager;
     FirebaseStorage storage;
@@ -90,15 +89,7 @@ public class Profile extends Fragment {
     public Profile() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Profile.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static Profile newInstance(String param1, String param2) {
         Profile fragment = new Profile();
         Bundle args = new Bundle();
@@ -138,7 +129,6 @@ public class Profile extends Fragment {
         ViewModelProvider.Factory test = (ViewModelProvider.Factory) new ViewModelProvider.NewInstanceFactory();
 
         profileViewModel = new ViewModelProvider(getActivity(), test).get(ProfileViewModel.class);
-        //profileViewModel = ViewModelProviders.of(getActivity()).get(ProfileViewModel.class);
         profileViewModel.init(currentId);
         profileViewModel.getProfile().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
@@ -154,6 +144,7 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
+                //preferenceManager.putString(Constants.P_ROLE,"none");
                 Intent intent = new Intent(getContext(), activity_login.class);
                 startActivity(intent);
                 Toast.makeText(getContext(), "Logout successful.", Toast.LENGTH_SHORT).show();
@@ -289,12 +280,12 @@ public class Profile extends Fragment {
                 user.put("address",Ebinding.txtAddress.getText().toString());
                 user.put("mobile",Ebinding.txtMobile.getText().toString());
                 user.put("role",Ebinding.txtRole.getText().toString());
-                if(item =="Activate"){
-                    user.put("status",Boolean.TRUE);
-                }
-                else{
-                    user.put("status",Boolean.FALSE);
-                }
+//                if(item =="Activate"){
+//                    user.put("status",Boolean.TRUE);
+//                }
+//                else{
+//                    user.put("status",Boolean.FALSE);
+//                }
                //user.put("status",Ebinding.txtStatus.getText().toString());
 
 
@@ -329,6 +320,10 @@ public class Profile extends Fragment {
         Ebinding.txtEmail.setText(preferenceManager.getString(Constants.P_EMAIL));
         Ebinding.txtMobile.setText(preferenceManager.getString(Constants.P_MOBILE));
         Ebinding.txtRole.setText(preferenceManager.getString(Constants.P_ROLE));
+//        if (preferenceManager.getString(Constants.P_ROLE).equals("Admin")){
+//            Ebinding.autoCompleteTxt.setVisibility(View.GONE);
+//            Ebinding.outlinedStatus.setVisibility(View.GONE);
+//        }
         if(preferenceManager.getBoolean(String.valueOf(Constants.P_STATUS)) == Boolean.TRUE)
         {
             Ebinding.autoCompleteTxt.setText("Activate");

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.kurata.hotelmanagement.databinding.ActivityAddLocationBinding;
+import com.kurata.hotelmanagement.utils.Constants;
+import com.kurata.hotelmanagement.utils.Preference;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,15 +45,20 @@ public class Add_location extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_CODE = 101;
     private ActivityAddLocationBinding binding;
     private Double Latitude, Longitude;
+    private Preference preferenceManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_add_location);
         binding = ActivityAddLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //init
+        preferenceManager = new Preference(getApplicationContext());
+
+        binding.search.clearFocus();
+        Location x = new Location(LocationManager.GPS_PROVIDER);
         fusedClient = LocationServices.getFusedLocationProviderClient(this);
         getLocation();
 
@@ -89,6 +97,8 @@ public class Add_location extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
+
+
         binding.submit.setOnClickListener(v -> onBackPressed());
 
     }
@@ -99,10 +109,14 @@ public class Add_location extends FragmentActivity implements OnMapReadyCallback
 
         Intent i = new Intent();
 
-
         i.putExtra("address", binding.search.getQuery().toString());
-        i.putExtra("latitude", Latitude);
-        i.putExtra("longitude", Longitude);
+//        i.putExtra("latitude", Latitude);
+//        i.putExtra("longitude", Longitude);
+        if(Latitude != null){
+            preferenceManager.putString(Constants.LATITUDE, String.valueOf(Latitude));
+            preferenceManager.putString(Constants.LONGITUDE, String.valueOf(Longitude));
+        }
+
         setResult(RESULT_OK, i);
         finish();
     }
@@ -149,15 +163,8 @@ public class Add_location extends FragmentActivity implements OnMapReadyCallback
 
     private void getLocation() {
 
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
         }
@@ -177,7 +184,7 @@ public class Add_location extends FragmentActivity implements OnMapReadyCallback
                 public void onSuccess(Location location) {
                     if (location != null) {
                         currentLocation = location;
-                        Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
                         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                         assert supportMapFragment != null;
                         supportMapFragment.getMapAsync(Add_location.this);

@@ -1,24 +1,23 @@
 package com.kurata.hotelmanagement.ui.phonelogin;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.kurata.hotelmanagement.databinding.ActivityPhoneLoginBinding;
+import com.kurata.hotelmanagement.ui.login.activity_login;
 import com.kurata.hotelmanagement.ui.otp.activity_otp;
 
 import java.util.concurrent.TimeUnit;
-
-import com.kurata.hotelmanagement.databinding.ActivityPhoneLoginBinding;
 
 public class phone_login extends AppCompatActivity {
 
@@ -45,6 +44,13 @@ public class phone_login extends AppCompatActivity {
 //        }
 //        session =new SessionManager(getApplicationContext());
 
+        binding.email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), activity_login.class);
+                startActivity(intent);
+            }
+        });
 
         binding.btnLogin.setOnClickListener(v -> {
             //toast error

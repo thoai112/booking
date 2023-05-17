@@ -34,7 +34,6 @@ public class HotelsRecyclerAdapter extends RecyclerView.Adapter<HotelsRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
-        //Hotel model = list.get(position);
         holder.setData(list.get(position), hotelListener);
 
     }
@@ -69,7 +68,10 @@ public class HotelsRecyclerAdapter extends RecyclerView.Adapter<HotelsRecyclerAd
                 model.setImage(hotel.getImage());
                 model.setAbout(hotel.getAbout());
                 model.setStatus(hotel.getStatus());
+                model.setUserID(hotel.getUserID());
                 model.setLocation(hotel.getLocation());
+                model.setCitiID(hotel.getCitiID());
+                model.setHoteltypeID(hotel.getHoteltypeID());
                 hotelListener.onUserClicked(model);
             });
         }

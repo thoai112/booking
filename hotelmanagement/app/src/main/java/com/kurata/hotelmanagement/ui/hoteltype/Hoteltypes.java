@@ -106,13 +106,14 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
 
         });
 
-
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PopupAddHoteltype(Gravity.CENTER);
             }
         });
+
+        binding.back.setOnClickListener(v-> getActivity().onBackPressed());
 
 
         return view;
@@ -194,11 +195,12 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
                 data.put("id",addedDocRef.getId().toString());
                 data.put("img","");
 
-                if(item == items[0]){
+                if(item ==(items[0])){
                     data.put("status",Boolean.TRUE);
                 }else{
                     data.put("Status", Boolean.FALSE);
                 }
+
                 firestore.collection("rating").document(addedDocRef.getId()).set(data);
 
                 if(selectedImage!=null){
@@ -314,7 +316,7 @@ public class Hoteltypes extends Fragment implements HoteltypesRecyclerAdapter.Ho
                 HashMap<String, Object> hoteltype = new HashMap<>();
                 hoteltype.put("name",UBinding.txttitle.getText().toString());
                 hoteltype.put("type",UBinding.txtrate.getText().toString());
-                if(item == items[0]){
+                if(UBinding.autoCompleteTxt.getText().toString().equals(items[0])){
                     hoteltype.put("status",Boolean.TRUE);
                 }else{
                     hoteltype.put("status",Boolean.FALSE);

@@ -21,7 +21,6 @@ public class RoomsViewModel extends ViewModel {
         mRepository = RoomRepository.getInstance();
         mRoom=mRepository.getAllRoom();
         //hoteltype_id, hotel_id, room_id
-
     }
 
     public LiveData<List<Room>> getAllRoom(){

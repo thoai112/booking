@@ -38,6 +38,8 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@mipmap/haven"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#009688"
                 />
         </LinearLayout>
 
@@ -119,7 +121,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/outlined_role"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -131,13 +133,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/txtrole"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHighlight="@color/textColorHighlight" />
+                    android:inputType="none"
+                    android:textColorHighlight="@color/textColorHighlight"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,7 +155,8 @@
                     android:id="@+id/mStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    android:textColorHighlight="@color/textColorHighlight"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

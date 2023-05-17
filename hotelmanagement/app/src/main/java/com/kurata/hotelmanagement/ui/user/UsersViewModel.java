@@ -16,17 +16,14 @@ public class UsersViewModel extends ViewModel{
         private MutableLiveData<List<User>> mUser;
         private Repository mRepository;
 
-        public void init(String myId){
+        public void init(){
             if (mUser!=null){
                 return;
             }
             mRepository=Repository.getInstance();
-            mUser=mRepository.getAllUser(myId);
-
         }
-
-        public LiveData<List<User>> getAllUsersData(){
-            return mUser;
+        public LiveData<List<User>> getAllUsersData(String myId, String role){
+            return mUser=mRepository.getUser(myId, role);
         }
 
 

@@ -82,7 +82,6 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
 
         //mViewModel =  new ViewModelProvider(requireActivity()).get(PopularViewModel.class);
 
-
         zViewModel =  new ViewModelProvider(requireActivity()).get(RoomsViewModel.class);
         zViewModel.init();
 
@@ -91,6 +90,7 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
         binding.RecyclerView.setHasFixedSize(true);
         binding.RecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         binding.RecyclerView.setAdapter(recyclerAdapter);
+
 
         zViewModel.getAllRoom().observe(getViewLifecycleOwner(), hotels -> {
             list.clear();
@@ -155,7 +155,6 @@ public class Room_pop extends Fragment implements RoomsRecyclerAdapter.RoomListe
     }
 
     private void filter(String text) {
-
         ArrayList<Room> filteredList = new ArrayList<Room>();
         for (Room item : list) {
             Log.e("item", "item is: " + item.getName() + "  \n\n");

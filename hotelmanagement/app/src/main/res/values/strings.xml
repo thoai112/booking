@@ -242,6 +242,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    Todo : Login-->
+    <string name="msg_don_have_acc">"Don't have an account?"</string>
+    <string name="msg_sign_up">Sign up</string>
+
     <!--    TODO: HOTEL MANAGER -->
     <string name="title_manage_hotel">Hotel Manager</string>
     <string name="hm_user">Nguời dùng</string>

@@ -116,7 +116,8 @@ public class Repository {
     }
 
 
-    //getall user
+    //todo - get user
+    // get all user
     public MutableLiveData<List<User>> getAllUser(String myId) {
         MutableLiveData<List<User>> allUser = new MutableLiveData<>();
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -135,8 +136,29 @@ public class Repository {
             }
         });
         return allUser;
-
     }
+    //todo - get user with role
+    public MutableLiveData<List<User>> getUser(String myId, String role) {
+        MutableLiveData<List<User>> allUser = new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("users").whereEqualTo("role",role).addSnapshotListener((value, error) -> {
+            if (error != null) return;
+            if (value != null) {
+                List<User> tempList = new ArrayList<>();
+                for (DocumentSnapshot document : value.getDocuments()) {
+                    User model = document.toObject(User.class);
+                    assert model != null;
+                    if (!model.getId().equals(myId)) {
+                        tempList.add(model);
+                    }
+                }
+                allUser.postValue(tempList);
+            }
+        });
+        return allUser;
+    }
+
+
     //todo - get pop
 
     public MutableLiveData<List<String>> getPopz() {

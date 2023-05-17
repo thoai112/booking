@@ -110,6 +110,8 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
 
         });
 
+        binding.back.setOnClickListener(v-> getActivity().onBackPressed());
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +161,8 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
         dialog.setCancelable(false);
+
+        UBinding.txtrate.setVisibility(View.GONE);
 
         adapterItems = new ArrayAdapter<String>(getActivity(), R.layout.drop_down_item, items);
         UBinding.autoCompleteTxt.setAdapter(adapterItems);
@@ -316,12 +320,11 @@ public class RoomType extends Fragment implements RoomtypesRecyclerAdapter.Roomt
             public void onClick(View view) {
                 HashMap<String, Object> roomtype = new HashMap<>();
                 roomtype.put("name",UBinding.txttitle.getText().toString());
-                if(item.equals(items[0])){
+                if(UBinding.autoCompleteTxt.getText().toString().equals(items[0])){
                     roomtype.put("status", Boolean.TRUE);
                 }else{
                     roomtype.put("status", Boolean.FALSE);
                 }
-
 
                 if(selectedImage!=null){
                     RoomRepository repository = new RoomRepository();

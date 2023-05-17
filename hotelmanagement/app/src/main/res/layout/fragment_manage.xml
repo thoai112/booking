@@ -114,6 +114,7 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="150dp"
@@ -121,10 +122,83 @@
         android:orientation="horizontal"
         android:layout_marginTop="0dp"
         android:padding="10dp"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/row1">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mRoomtype"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="20dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#6BBD99">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clothingName"
+                    android:text="@string/hm_room_type"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/roomtypeImage"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/roomtypeImage"
+                    android:src="@drawable/roomtype"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/mPopular"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            app:cardElevation="6dp"
+            app:cardCornerRadius="20dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#6BBD99">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/popularName"
+                    android:text="@string/hm_pop"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/popularImage"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/popularImage"
+                    android:src="@drawable/pop"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:id="@+id/row3"
+        android:orientation="horizontal"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/row2">
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -179,26 +253,26 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:id="@+id/grocImage"
-                    android:src="@mipmap/icon6"
+                    android:src="@drawable/xxhotels"
                     android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="150dp"
-        android:id="@+id/row3"
+        android:id="@+id/row4"
         android:orientation="horizontal"
         android:layout_marginTop="0dp"
         android:padding="10dp"
-        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/row2">
+        app:layout_constraintTop_toBottomOf="@id/row3">
         <androidx.cardview.widget.CardView
-            android:id="@+id/mRoomtype"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -212,23 +286,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/clothingName"
-                    android:text="@string/hm_room_type"
+                    android:id="@+id/zroom"
+                    android:text="@string/hm_room"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/clothingImage"/>
+                    android:layout_below="@+id/mzRoom"/>
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/clothingImage"
-                    android:src="@mipmap/icon3"
+                    android:id="@+id/mzRoom"
+                    android:src="@mipmap/hm_room"
                     android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:id="@+id/mPopular"
+            android:id="@+id/mzhotels"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -242,26 +316,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/popularName"
-                    android:text="@string/hm_pop"
+                    android:id="@+id/hotelName"
+                    android:text="@string/hm_hotel"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/popularImage"/>
+                    android:layout_below="@+id/hotelImage"/>
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:id="@+id/popularImage"
-                    android:src="@mipmap/icon4"
+                    android:id="@+id/hotelImage"
+                    android:src="@drawable/xxhotels"
                     android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

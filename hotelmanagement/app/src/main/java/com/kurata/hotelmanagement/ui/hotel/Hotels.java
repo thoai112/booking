@@ -76,6 +76,8 @@ public class Hotels extends Fragment implements HoteltypesRecyclerAdapter.Hotelt
                 }
             });
 
+            binding.back.setOnClickListener(v->getActivity().onBackPressed());
+
         return view;
     }
 
@@ -114,7 +116,6 @@ public class Hotels extends Fragment implements HoteltypesRecyclerAdapter.Hotelt
         else {
             recyclerAdapter.setFilteredList(filteredList);
         }
-
 
     }
 
