@@ -221,5 +221,28 @@ public class Repository {
         return allPromotion;
     }
 
+//    public MutableLiveData<List<Promotion>> getAllPromotion() {
+//        MutableLiveData<List<Promotion>> allPromotion = new MutableLiveData<>();
+//        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+//        firestore.collection("promotions").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (error != null) {
+//                    Log.w(TAG, "Listen failed.", error);
+//                    return;
+//                }
+//                List<Promotion> promotions = new ArrayList<>();
+//
+//                for (QueryDocumentSnapshot document : value) {
+//                    Promotion promotion = document.toObject(Promotion.class);
+//                    promotions.add(promotion);
+//                }
+//
+//                allPromotion.setValue(promotions);
+//            }
+//        });
+//        return allPromotion;
+//    }
+
 
 }

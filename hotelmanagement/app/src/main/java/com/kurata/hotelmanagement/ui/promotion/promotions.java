@@ -16,6 +16,7 @@ import com.kurata.hotelmanagement.data.model.Promotion;
 import com.kurata.hotelmanagement.databinding.FragmentPromotionsBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -36,7 +37,6 @@ public class promotions extends Fragment implements PromotionsRecyclerAdapter.Pr
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +48,6 @@ public class promotions extends Fragment implements PromotionsRecyclerAdapter.Pr
         // Inflate the layout for this fragment
         binding = FragmentPromotionsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-
 
         mViewModel =  new ViewModelProvider(requireActivity()).get(PromotionsViewModel.class);
         mViewModel.init();
@@ -72,13 +71,40 @@ public class promotions extends Fragment implements PromotionsRecyclerAdapter.Pr
 
             }
         });
+
         return  view;
     }
 
     @Override
     public void onUserClicked(Promotion promotion) {
         Intent intent = new Intent(getActivity(), activity_enter_promotion.class);
+        Promotion model = new Promotion();
+        Bundle bundle = new Bundle();
+        model.setName(promotion.getName());
+        model.setId(promotion.getId());
+        model.setUserID(promotion.getUserID());
+        model.setHoteltypeID(promotion.getHoteltypeID());
+        model.setCode(promotion.getCode());
+        model.setHotelID(promotion.getHotelID());
+        model.setRoomtypeID(promotion.getRoomtypeID());
+        model.setRoomID(promotion.getRoomID());
+        model.setRemai(promotion.getRemai());
+        model.setSum(promotion.getSum());
+        model.setDiscount_ratio(promotion.getDiscount_ratio());
+        model.setDescription(promotion.getDescription());
+        model.setImg(promotion.getImg());
+
+        Date dateStart = promotion.getTime_start().toDate();
+        Date dateEnd = promotion.getTime_end().toDate();
+        Date createAt = promotion.getCreated_at().toDate();
+
+        bundle.putSerializable("model",model);
+        bundle.putLong("dateStart",dateStart.getTime());
+        bundle.putLong("dateEnd",dateEnd.getTime());
+        bundle.putLong("creatAt",createAt.getTime());
         intent.putExtra("promotion", true);
+        intent.putExtra("BUNDLE",bundle);
+
         startActivityForResult(intent,1);
         getActivity().overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }

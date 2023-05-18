@@ -55,27 +55,29 @@ public class PromotionsRecyclerAdapter extends RecyclerView.Adapter<PromotionsRe
             binding = itemBinding;
         }
 
-        void setData(Promotion promotion, PromotionListener hotelListener){
-            binding.gridCaption.setText(promotion.getName());
-            Glide.with(binding.gridImage).load(promotion.getImg()).into(binding.gridImage);
+        void setData(Promotion p, PromotionListener promotionListener){
+            binding.gridCaption.setText(p.getName());
+            Glide.with(binding.gridImage).load(p.getImg()).into(binding.gridImage);
+
             binding.getRoot().setOnClickListener(v -> {
                 Promotion model = new Promotion();
-                model.setName(promotion.getName());
-                model.setId(promotion.getId());
-                model.setUserID(promotion.getUserID());
-                model.setHoteltypeID(promotion.getHoteltypeID());
-                model.setCode(promotion.getCode());
-                model.setHotelID(promotion.getHotelID());
-                model.setRoomtypeID(promotion.getRoomtypeID());
-                model.setRoomID(promotion.getRoomID());
-                model.setRemai(promotion.getRemai());
-                model.setSum(promotion.getSum());
-                model.setDiscount_ratio(promotion.getDiscount_ratio());
-                model.setTime_start(promotion.getTime_start());
-                model.setTime_end(promotion.getTime_end());
-                model.setCreated_at(promotion.getCreated_at());
-                model.setDescription(promotion.getDescription());
-                hotelListener.onUserClicked(model);
+                model.setName(p.getName());
+                model.setId(p.getId());
+                model.setUserID(p.getUserID());
+                model.setHoteltypeID(p.getHoteltypeID());
+                model.setCode(p.getCode());
+                model.setHotelID(p.getHotelID());
+                model.setRoomtypeID(p.getRoomtypeID());
+                model.setRoomID(p.getRoomID());
+                model.setRemai(p.getRemai());
+                model.setSum(p.getSum());
+                model.setDiscount_ratio(p.getDiscount_ratio());
+                model.setDescription(p.getDescription());
+                model.setImg(p.getImg());
+                model.setTime_start(p.getTime_start());
+                model.setTime_end(p.getTime_end());
+                model.setCreated_at(p.getCreated_at());
+                promotionListener.onUserClicked(model);
             });
         }
     }

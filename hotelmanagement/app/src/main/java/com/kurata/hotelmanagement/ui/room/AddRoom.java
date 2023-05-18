@@ -65,9 +65,9 @@ public class AddRoom extends AppCompatActivity {
     private Room object =new Room();
 
     //Value spinner
-    private String shoteltype;
-    private String shotel;
-    private String sroomtype;
+//    private String shoteltype;
+//    private String shotel;
+//    private String sroomtype;
 
     private String shoteltypeID, sroomtypeID, shotelID;
 

@@ -458,8 +458,6 @@ public class AddHotel extends AppCompatActivity {
         }else
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-
-                //Hotel model = (Hotel) data.getSerializableExtra("location");
                 binding.txtaddress.setText(data.getStringExtra("address"));
                 geoPoint = new GeoPoint(Double.parseDouble(preferenceManager.getString(Constants.LATITUDE)), Double.parseDouble(preferenceManager.getString(Constants.LONGITUDE)));
             }

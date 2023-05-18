@@ -225,6 +225,39 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <CheckBox
+                        android:id="@+id/alluser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All User"
+                        app:layout_constraintEnd_toEndOf="@+id/etVoucherTitleName"
+                        app:layout_constraintTop_toTopOf="@+id/enterpro_day_chk" />
+
+                    <CheckBox
+                        android:id="@+id/allhoteltype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All hoteltype"
+                        app:layout_constraintEnd_toStartOf="@+id/enterpro_overnight_chk"
+                        app:layout_constraintStart_toEndOf="@+id/enterpro_hour_chk"
+                        app:layout_constraintTop_toTopOf="@+id/enterpro_hour_chk" />
+
+                    <CheckBox
+                        android:id="@+id/allroomtype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All roomtype"
+                        app:layout_constraintStart_toStartOf="@+id/etVoucherTitleName"
+                        app:layout_constraintTop_toBottomOf="@+id/etVoucherTitleName" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/spin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -274,6 +307,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/spin1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -306,7 +340,7 @@
                         android:layout_width="@dimen/_170pxh"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_30pxh"
-                        android:hint="Hotel"
+                        android:hint="Room"
                         android:textColorHint="@color/purple"
                         android:theme="@style/EditTextThemeOverlay"
                         app:boxStrokeColor="@color/purple"
