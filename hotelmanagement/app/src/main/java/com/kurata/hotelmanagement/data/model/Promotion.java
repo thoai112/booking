@@ -8,6 +8,7 @@ public class Promotion {
     Timestamp time_end;
     Timestamp created_at;
     String name;
+    String code;
     String description;
     String hotelID;
     String hoteltypeID;
@@ -17,7 +18,7 @@ public class Promotion {
     String img;
     String sum;
     String remai;
-    float discount_ratio;
+    String discount_ratio;
 
 //    @RequiresApi(api = Build.VERSION_CODES.O)
 //    public long getRemainDay(){
@@ -26,13 +27,14 @@ public class Promotion {
     public Promotion() {
     }
 
-    public Promotion(String id, Timestamp time_start, Timestamp time_end, Timestamp created_at, String name, String description, String hoteltypeID, String hotelID, String roomtypeID, String roomID, String userID, String img, String sum, String remai) {
+    public Promotion(String id, String code, Timestamp time_start, Timestamp time_end, Timestamp created_at, String name, String description, String hoteltypeID, String hotelID, String roomtypeID, String roomID, String userID, String img, String sum, String remai, String discount_ratio) {
 
         this.id = id;
         this.time_start = time_start;
         this.time_end = time_end;
         this.created_at = created_at;
         this.name = name;
+        this.code = code;
         this.description = description;
         this.hotelID = hotelID;
         this.hoteltypeID = hoteltypeID;
@@ -42,6 +44,7 @@ public class Promotion {
         this.img = img;
         this.sum = sum;
         this.remai = remai;
+        this.discount_ratio = discount_ratio;
     }
 
 
@@ -117,6 +120,14 @@ public class Promotion {
         this.roomID = roomID;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
     public String getId() {
         return id;
     }
@@ -149,11 +160,18 @@ public class Promotion {
         this.remai = remai;
     }
 
-    public float getDiscount_ratio() {
+    public String getDiscount_ratio() {
         return discount_ratio;
     }
 
-    public void setDiscount_ratio(float discount_ratio) {
+    public void setDiscount_ratio(String discount_ratio) {
         this.discount_ratio = discount_ratio;
+    }
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kurata.hotelmanagement.data.model.Popula;
+import com.kurata.hotelmanagement.data.model.Promotion;
 import com.kurata.hotelmanagement.data.model.User;
 import com.kurata.hotelmanagement.utils.Preference;
 
@@ -37,6 +38,7 @@ public class Repository {
     private  User user = new User();
     private ArrayList<User> arraylist =new ArrayList<>();
     private ArrayList<Popula> popularlist = new ArrayList<>();
+    private ArrayList<Promotion> promotions = new ArrayList<>();
 
 
     public static Repository getInstance(){
@@ -199,6 +201,25 @@ public class Repository {
         return allpop;
     }
 
+    //todo - get promotion
+    public MutableLiveData<List<Promotion>> getAllPromotion() {
+        MutableLiveData<List<Promotion>> allPromotion = new MutableLiveData<>();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("promotions").addSnapshotListener((value, error) -> {
+            if (error != null) return;
+            if (value != null) {
+                List<Promotion> tempList = new ArrayList<>();
+                for (DocumentSnapshot document : value.getDocuments()) {
+                    Promotion model = document.toObject(Promotion.class);
+                    assert model != null;
+                    tempList.add(model);
+                    Log.d("name", model.getName());
+                }
+                allPromotion.postValue(tempList);
+            }
+        });
+        return allPromotion;
+    }
 
 
 }
